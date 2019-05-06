@@ -1,0 +1,15 @@
+{
+  "name": "zweiundvierzig",
+  "version": "1.0.0",
+  "description": "zweiUndVierzig-Taschenrechner: JavaScript Projektarbeit SS19",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://r-n-d.informatik.hs-augsburg.de:8080/javascript-ss19/zweiundvierzig"
+  },
+  "author": "Marco Schäck / Andreas Rudolf",
+  "license": "ISC"
+}
