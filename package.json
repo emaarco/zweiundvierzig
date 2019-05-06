@@ -11,5 +11,8 @@
     "url": "https://r-n-d.informatik.hs-augsburg.de:8080/javascript-ss19/zweiundvierzig"
   },
   "author": "Marco Schäck / Andreas Rudolf",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
 }

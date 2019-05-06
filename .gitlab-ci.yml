@@ -1,0 +1,5 @@
+# CI setup to automatically run the jest-test
+# after each push on a feature branch / 
+# merge on master
+
+# >> code tbd

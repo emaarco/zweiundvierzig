@@ -1,0 +1,2 @@
+# checkout all changes on node-modules folder
+node_modules/*
