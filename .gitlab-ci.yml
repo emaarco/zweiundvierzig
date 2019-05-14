@@ -2,4 +2,14 @@
 # after each push on a feature branch / 
 # merge on master
 
-# >> code tbd
+# build the project 
+# test if needed
+
+# run the tests
+unit test:
+  stage: test
+  script:
+    - npm install --progress=false
+    - npm run test:all
+
+# deploy (inactive - not needed)
