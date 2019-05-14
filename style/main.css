@@ -3,7 +3,7 @@ body {
 }
 
 .container {
-    padding-top: 20px;
+    padding-top: 30px;
 }
 
 .selector-for-some-widget {
@@ -12,18 +12,27 @@ body {
 
 .col-sm {
     background-color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.125);
+    border-style: solid;
+    border-radius: 2%;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
     padding-left: 50px;
     padding-right: 50px;
-    border-width: 1px;
-    border-color: grey;
     margin-right: 50px;
 }
 
-button {
+.col-sm button {
     width: 23% ;
-    height: 50px;
+    height: 75px;
     margin-right: 2%;
     margin-top: 10px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.125);
+}
+
+.col-sm .form-control {
+    width: 100%; 
 }

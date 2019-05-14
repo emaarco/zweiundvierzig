@@ -22,22 +22,29 @@
 		<!-- Internal CSS File -->
 		<link rel="stylesheet" href="./style/main.css">
 
+		<!-- Internal JS Files -->
+		<script type="text/javascript" src="./src/main/site/main.js"></script>
+
 	</head>
+	<body>
 		<!-- Navigation Bar -->
-		<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-			<a class="navbar-brand" href="#">
-			  	<img src="./img/navbar_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-				// der zweiundvierzig-Taschenrechner
-			</a>
-		</nav>
+		<header>
+			<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+				<a class="navbar-brand" href="#">
+					<img src="./img/navbar_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+					// der zweiundvierzig-Taschenrechner
+				</a>
+			</nav>
+		</header>
 
 		<div class="container">
 			<div class="row">
 				<div class="col-sm">
-					<div class="row">
-						Hier steht die Berechnung
+					<div class="form-group">
+						<textarea class="form-control" id="calculationArea" rows="3" inactive></textarea>
 					</div>
 					<div class="row">
+						<button type="button" class="btn btn-light">ON / OFF</button>
 						<button type="button" class="btn btn-light">Clear All</button>
 						<button type="button" class="btn btn-light">Clear Last</button>
 						<button type="button" class="btn btn-light">*</button>
@@ -63,7 +70,8 @@
 					<div class="row">
 						<button type="button" class="btn btn-light">,</button>
 						<button type="button" class="btn btn-light">0</button>
-						<button type="button" class="btn btn-light">=</button>
+						<button type="button" id="lastResult" class="btn btn-light">ANS</button>
+						<button type="button" id="calcResult" class="btn btn-light">=</button>
 					</div>
 			  	</div>
 			  	<div class="col-sm">
