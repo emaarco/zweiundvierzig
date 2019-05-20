@@ -4,12 +4,19 @@
   "description": "zweiUndVierzig-Taschenrechner: JavaScript Projektarbeit SS19",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest --watch all"
   },
   "repository": {
     "type": "git",
     "url": "https://r-n-d.informatik.hs-augsburg.de:8080/javascript-ss19/zweiundvierzig"
   },
   "author": "Marco Schäck / Andreas Rudolf",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "jest": "^24.5.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+  }
 }
