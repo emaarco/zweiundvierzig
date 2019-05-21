@@ -2,15 +2,28 @@ body {
     background-color: #f5f8fa;
 }
 
+<<<<<<< HEAD
 .container {
     padding-top: 30px;
+=======
+header {
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+>>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
 }
 
 .selector-for-some-widget {
     box-sizing: content-box;
 }
 
+<<<<<<< HEAD
 .col-sm {
+=======
+/* ////////////////////////////////////////////////////// */
+/* Calculator */
+.calculator {
+>>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
     background-color: white;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.125);
@@ -21,7 +34,22 @@ body {
     padding-bottom: 20px;
     padding-left: 50px;
     padding-right: 50px;
+<<<<<<< HEAD
     margin-right: 50px;
+=======
+    margin-top: 20px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+#calculationArea {
+    resize: none;
+    height: 110px;
+    background-color: #333333;
+    color: white;
+    text-align: right;
+    font-size: 40px;
+>>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
 }
 
 .col-sm button {
@@ -33,6 +61,55 @@ body {
     border-color: rgba(0, 0, 0, 0.125);
 }
 
+<<<<<<< HEAD
 .col-sm .form-control {
     width: 100%; 
+=======
+/* ////////////////////////////////////////////////////// */
+/* Alerts */
+.alertArea {
+    margin-top: 20px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+
+.alert-description {
+    font-size: 1rem;
+}
+
+.alert-note {
+    font-size: 0.85rem;
+}
+
+.alert-description, .alert-note {
+    padding-right: 10%;
+}
+
+/* ////////////////////////////////////////////////////// */
+/* Logging */ 
+.loggingArea {
+    background-color: white;
+    margin-top: 20px;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+
+.card-img-top {
+    opacity: 0.75;
+}
+
+.card-title {
+    padding-top: 0px;
+    margin-top: 0px;
+    border-top: 0px;
+}
+
+.blockquote-footer {
+    padding-top: 2%;
+    padding-left: 3%;
+    padding-right: 15%;
+    font-size: 0.75rem;
+>>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
 }

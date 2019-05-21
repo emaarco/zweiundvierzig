@@ -1,2 +1,7 @@
 # checkout all changes on node-modules folder
+<<<<<<< HEAD
 node_modules/*
+=======
+node_modules/* 
+.vscode/*
+>>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html>
 	<head>
 		<!-- Site-Properties -->
@@ -82,4 +83,145 @@
 
 
 	</body>
+=======
+<html lang="de">
+
+<head>
+	<!-- Site-Properties -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<!-- Content-Description -->
+	<meta name="description" content="zweiUndVierzig: JavaScript Taschenrechner Projektarbeit (SS19)">
+	<meta name="keywords" content="Taschenrechner, JavaScript, SS19, Projekt">
+	<meta name="author" content="Marco Schäck / Andreas Rudolf">
+
+	<!-- Import Bootstrap Content -->
+	<link rel="stylesheet" href="./style/bootstrap.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- Page Title -->
+	<title>zweiundvierzig</title>
+	<link rel="shortcut icon" type="image/x-icon" href="./img/calc_favicon.png" ref="flaticon.com - by SmachIcons">
+
+	<!-- Internal CSS File -->
+	<link rel="stylesheet" href="./style/main.css">
+
+	<!-- Internal JS Files -->
+	<script type="module" src="./index.js"></script>
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<header>
+		<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+			<a class="navbar-brand" href="#">
+				<img src="./img/navbar_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+				// der zweiundvierzig-Taschenrechner
+			</a>
+		</nav>
+	</header>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm">
+				<div class="calculator">
+					<div class="form-group">
+						<div class="calculator-display">
+							<textarea class="form-control" id="calculationArea" rows="3" inactive></textarea>
+						</div>
+					</div>
+					<div class="calculator-keys">
+						<div class="row">
+							<button type="button" class="btn btn-light" id="bttnOnOff">ON / OFF</button>
+							<button type="button" class="btn btn-light" id="bttnClearAll">Clear All</button>
+							<button type="button" class="btn btn-light" id="bttnClearLast">Clear Last</button>
+							<button type="button" class="btn btn-light" id="bttnMultiply">*</button>
+						</div>
+						<div class="row">
+							<button type="button" class="btn btn-light" id="bttn7">7</button>
+							<button type="button" class="btn btn-light" id="bttn8">8</button>
+							<button type="button" class="btn btn-light" id="bttn9">9</button>
+							<button type="button" class="btn btn-light" id="bttnDivide">/</button>
+						</div>
+						<div class="row">
+							<button type="button" class="btn btn-light" id="bttn4">4</button>
+							<button type="button" class="btn btn-light" id="bttn5">5</button>
+							<button type="button" class="btn btn-light" id="bttn6">6</button>
+							<button type="button" class="btn btn-light" id="bttnSubtract">-</button>
+						</div>
+						<div class="row">
+							<button type="button" class="btn btn-light" id="bttn1">1</button>
+							<button type="button" class="btn btn-light" id="bttn2">2</button>
+							<button type="button" class="btn btn-light" id="bttn3">3</button>
+							<button type="button" class="btn btn-light" id="bttnAdd">+</button>
+						</div>
+						<div class="row">
+							<button type="button" class="btn btn-light" id="bttnSep">,</button>
+							<button type="button" class="btn btn-light" id="bttn0">0</button>
+							<button type="button" class="btn btn-light" id="bttnAns">ANS</button>
+							<button type="button" class="btn btn-light" id="bttnCalc">=</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm">
+				<div class="alertArea">
+					<div class="alert alert-info" role="alert" id="alertMessage">
+						<h4 class="alert-heading" id="alertHeading">INFO:<h4>
+								<p class="alert-description" id="alertDescription">This is an currently empty message
+								</p>
+								<hr>
+								<p class="alert-note" id="alertNote">This is a undertitle.</p>
+					</div>
+
+				</div>
+				<div class="loggingArea">
+					<div class="card">
+						<img src="./img/calculation_log.png" class="card-img-top"
+							alt="card header showing a calculation">
+						<div class="card-body">
+
+							<ul class="nav nav-tabs" id="myTab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" id="calculationLogTab" id="calculations-tab"
+										data-toggle="tab" href="#calculations" role="tab" aria-controls="calculations"
+										aria-selected="true">Calculation Log</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="saveAndLoadTab" id="saveLoad-tab" data-toggle="tab"
+										href="#saveLoad" role="tab" aria-controls="saveLoad" aria-selected="false">Save
+										& Load Log</a>
+								</li>
+							</ul>
+
+							<div class="tab-content">
+								<div class="tab-pane active" id="calculationLogContent" role="tabpanel"
+									aria-labelledby="home-tab">
+									<ul class="list-group list-group-flush">
+										<li class="list-group-item">Calculation 1</li>
+										<li class="list-group-item">Calculation 2</li>
+										<li class="list-group-item">Calculation 3</li>
+										<li class="list-group-item">Calculation 4</li>
+										<li class="list-group-item">Calculation 5</li>
+									</ul>
+									<footer class="blockquote-footer">Showing the 5 most recent calculations. Click on a recent calculation to select the result as an input for your next calculation</footer>
+								</div>
+
+								<div class="tab-pane" id="saveAndLoadContent" role="tabpanel"
+									aria-labelledby="profile-tab">
+									<footer class="blockquote-footer">Within this tab you can save your most recent calculations / load them to the calculation log</footer>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+>>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
 </html>
