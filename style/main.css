@@ -2,28 +2,19 @@ body {
     background-color: #f5f8fa;
 }
 
-<<<<<<< HEAD
-.container {
-    padding-top: 30px;
-=======
 header {
     border-bottom-color: rgba(0, 0, 0, 0.125);
     border-bottom-width: 1px;
     border-bottom-style: solid;
->>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
 }
 
 .selector-for-some-widget {
     box-sizing: content-box;
 }
 
-<<<<<<< HEAD
-.col-sm {
-=======
 /* ////////////////////////////////////////////////////// */
 /* Calculator */
 .calculator {
->>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
     background-color: white;
     border-width: 1px;
     border-color: rgba(0, 0, 0, 0.125);
@@ -34,9 +25,6 @@ header {
     padding-bottom: 20px;
     padding-left: 50px;
     padding-right: 50px;
-<<<<<<< HEAD
-    margin-right: 50px;
-=======
     margin-top: 20px;
     margin-right: 25px;
     margin-left: 25px;
@@ -49,7 +37,6 @@ header {
     color: white;
     text-align: right;
     font-size: 40px;
->>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
 }
 
 .col-sm button {
@@ -61,10 +48,6 @@ header {
     border-color: rgba(0, 0, 0, 0.125);
 }
 
-<<<<<<< HEAD
-.col-sm .form-control {
-    width: 100%; 
-=======
 /* ////////////////////////////////////////////////////// */
 /* Alerts */
 .alertArea {
@@ -111,5 +94,4 @@ header {
     padding-left: 3%;
     padding-right: 15%;
     font-size: 0.75rem;
->>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
 }

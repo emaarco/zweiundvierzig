@@ -8,6 +8,9 @@ import CalculatorOnOffEventListener from "./src/main/listener/CalculatorOnOffEve
 import AlertWindow from "./src/main/gui/AlertWindow.js";
 import NavigationEventListener from "./src/main/listener/NavigationEventListener.js"
 import CalculationLogWindow from "./src/main/gui/CalculationLogWindow.js";
+import Calculator from "./src/main/Calculator/Calculator.js";
+import Term from "./src/main/Calculator/Term.js";
+import TermBuilder from "./src/main/Calculator/TermBuilder.js";
 
     //TODO: add subscribers to the listener
     //TODO: add the keyboard listener
@@ -21,6 +24,10 @@ let calculationEventListener = new CalculationEventListener();
 let keyboardEventListener = new KeyboardEventListener(calculationEventListener, calculatorOnOffEventListener, alertWindow);
 let navigationEventListener = new NavigationEventListener(calculationLogWindow);
 let calculatorSetup = new CalculatorSetup();
+let calculator = new Calculator();
+let term = new Term();
+let termBuilder = new TermBuilder(term, calculator, alertWindow);
+calculationEventListener.addSubscriber(termBuilder);
 
 // This code will run after the window loading process finished
 // Otherwise it wouldn´t be possible to initialize the eventListeners, as the html-elements havent been created till then.
@@ -32,7 +39,6 @@ window.onload = () => {
     calculatorSetup.setupAlertWindows(alertWindow);
     calculatorSetup.setupCalculatorWindow(calculatorWindow);
     calculatorSetup.setupNavigationEventListener(navigationEventListener);
-
 
     console.log("Calculator Set-Up completed");
 }

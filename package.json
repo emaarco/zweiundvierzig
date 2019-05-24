@@ -4,11 +4,7 @@
   "description": "zweiUndVierzig-Taschenrechner: JavaScript Projektarbeit SS19",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "test:all": "jest ./src/main/test/*"
-=======
     "test": "jest --watch all"
->>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
   },
   "repository": {
     "type": "git",
@@ -16,14 +12,6 @@
   },
   "author": "Marco Schäck / Andreas Rudolf",
   "license": "ISC",
-<<<<<<< HEAD
-  "devDependencies": {
-    "jest": "^24.8.0",
-    "webpack": "^4.30.0",
-    "webpack-cli": "^3.3.2"
-  },
-  "dependencies": {}
-=======
   "dependencies": {
     "http-server": "^0.11.1",
     "jest": "^24.5.0"
@@ -31,5 +19,4 @@
   "devDependencies": {
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
   }
->>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
 }
