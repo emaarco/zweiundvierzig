@@ -6,7 +6,7 @@ export default class CalculationEventListener {
      * A constructor which initializes an empty set of subscribers.
      */
     constructor() {
-        this.subscribers = new Set(null);
+        this.__subscribers = new Set(null);
     }
 
     /**
@@ -17,11 +17,11 @@ export default class CalculationEventListener {
      */
     addSubscriber(newSubscriber) {
         if (this.__isSubscriberValid(newSubscriber)) {
-            if (this.subscribers.has(newSubscriber)) {
+            if (this.__subscribers.has(newSubscriber)) {
                 console.log("Consumer allready subscribed to the events");
             } else {
-                this.subscribers.add(newSubscriber);
-                this.subscribers.has(newSubscriber)
+                this.__subscribers.add(newSubscriber);
+                this.__subscribers.has(newSubscriber)
                     ? console.log("Subscriber successfully added to the list")
                     : console.log("An error occured while adding the new subscriber to the list")
             }
@@ -31,9 +31,9 @@ export default class CalculationEventListener {
     }
 
     removeSubscriber(subscriberToBeRemoved) {
-        if (this.subscribers.has(subscriberToBeRemoved)) {
+        if (this.__subscribers.has(subscriberToBeRemoved)) {
             console.log("Removing subscriber from the list of subscribers");
-            this.subscribers.delete(subscriberToBeRemoved);
+            this.__subscribers.delete(subscriberToBeRemoved);
         } else {
             console.log("No subscriber known by this name");
         }
@@ -46,7 +46,7 @@ export default class CalculationEventListener {
     numberEvent(calledNumber) {
         document.getElementById("calculationArea").innerHTML += calledNumber;
         console.log(calledNumber);
-        this.subscribers.forEach((subscriber => {
+        this.__subscribers.forEach((subscriber => {
             subscriber.consumeNumberEvent(calledNumber); 
         }));
     }
@@ -58,7 +58,7 @@ export default class CalculationEventListener {
     operatorEvent(calledOperator) {
         console.log(calledOperator);
         document.getElementById("calculationArea").innerHTML += calledOperator;
-        this.subscribers.forEach((subscriber) => {
+        this.__subscribers.forEach((subscriber) => {
             subscriber.consumeOperatorEvent(calledOperator);
         })
     }
@@ -71,7 +71,7 @@ export default class CalculationEventListener {
         console.log(calledEvent);
         let doc = document.getElementById("calculationArea");
         doc.innerHTML = doc.innerHTML.substr(0, doc.innerHTML.length-1);
-        this.subscribers.forEach((subscriber) => {
+        this.__subscribers.forEach((subscriber) => {
             subscriber.consumeSpecialEvent(calledEvent);
         });
     }

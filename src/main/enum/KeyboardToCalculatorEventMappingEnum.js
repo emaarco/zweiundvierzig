@@ -8,7 +8,7 @@ const keyboardToCalculatorEventMappingEnum = {
     "Backspace": "CLEAR_LAST",
     "Enter": "calculate",
     "Escape": "ON_OFF",
-    ".": ",",
+    ",": ".",
     "+": "add", 
     "-": "subtract",
     "/": "divide",
