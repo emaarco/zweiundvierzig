@@ -2,6 +2,7 @@
 
 import keyboardCalculatorOperationsEnum from "../enum/KeyboardCalculatorOperationsEnum.js";
 import CalculationEventListener from "./CalculationEventListener.js";
+import CalculatorOnOffEventListener from "../../main/listener/CalculatorOnOffEventListener.js";
 import KeyboardEventToCalculatorEventMapper from "../mapper/KeyboardToCalculatorMapper.js";
 import AlertWindow from "../gui/AlertWindow.js";
 
@@ -61,6 +62,7 @@ export default class KeyboardEventListener {
             return true;
         }
         this.__alertWindow.publishInvalidKeyboardInputWarning(buttonPressed);
+        return false;
     }
 
 
@@ -71,6 +73,7 @@ export default class KeyboardEventListener {
      * @returns event category
      */
     __determineEventCategory(buttonPressed) {
+    
         if (keyboardCalculatorOperationsEnum.number.includes(buttonPressed)) {
             return "numberEvent";
         } else if (keyboardCalculatorOperationsEnum.operator.includes(buttonPressed)) {
