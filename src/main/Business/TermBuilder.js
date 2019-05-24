@@ -1,4 +1,5 @@
 'use strict';
+import Term from "../data/Term.js"
 
 export default class TermBuilder {
 
@@ -148,6 +149,7 @@ export default class TermBuilder {
         } else if (special === "CLEAR_LAST") {
             if (this.__term.flag === "result") {
                 this.__term.result =  this.__term.result.slice(0, this.__term.result.length-1);
+                this.__term.ans =  this.__term.ans.slice(0, this.__term.ans.length-1);
                 if (this.__term.result === "") {
                     this.__term.flag = "num2";
                     this.__term.termToDisplay();

@@ -8,25 +8,25 @@ import CalculatorOnOffEventListener from "./src/main/listener/CalculatorOnOffEve
 import AlertWindow from "./src/main/gui/AlertWindow.js";
 import NavigationEventListener from "./src/main/listener/NavigationEventListener.js"
 import CalculationLogWindow from "./src/main/gui/CalculationLogWindow.js";
-import Calculator from "./src/main/Calculator/Calculator.js";
-import Term from "./src/main/Calculator/Term.js";
-import TermBuilder from "./src/main/Calculator/TermBuilder.js";
+import Calculator from "./src/main/Business/Calculator.js.js";
+import Term from "./src/main/data/Term.js";
+import TermBuilder from "./src/main/Business/TermBuilder.js.js";
 
     //TODO: add subscribers to the listener
     //TODO: add the keyboard listener
 
 // Start calculator setup
-let calculatorWindow = new CalculatorWindow();
-let alertWindow = new AlertWindow();
-let calculationLogWindow = new CalculationLogWindow();
-let calculatorOnOffEventListener = new CalculatorOnOffEventListener(calculatorWindow, alertWindow);
-let calculationEventListener = new CalculationEventListener();
-let keyboardEventListener = new KeyboardEventListener(calculationEventListener, calculatorOnOffEventListener, alertWindow);
-let navigationEventListener = new NavigationEventListener(calculationLogWindow);
-let calculatorSetup = new CalculatorSetup();
-let calculator = new Calculator();
-let term = new Term();
-let termBuilder = new TermBuilder(term, calculator, alertWindow);
+const calculatorWindow = new CalculatorWindow();
+const alertWindow = new AlertWindow();
+const calculationLogWindow = new CalculationLogWindow();
+const calculatorOnOffEventListener = new CalculatorOnOffEventListener(calculatorWindow, alertWindow);
+const calculationEventListener = new CalculationEventListener();
+const keyboardEventListener = new KeyboardEventListener(calculationEventListener, calculatorOnOffEventListener, alertWindow);
+const navigationEventListener = new NavigationEventListener(calculationLogWindow);
+const calculatorSetup = new CalculatorSetup();
+const calculator = new Calculator();
+const term = new Term();
+const termBuilder = new TermBuilder(term, calculator, alertWindow);
 calculationEventListener.addSubscriber(termBuilder);
 
 // This code will run after the window loading process finished

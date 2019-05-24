@@ -20,6 +20,7 @@ export default class Term {
     // add enum for operator
     termToDisplay() {
         let op = "";
+        // add enum function
         switch (this.operator) {
             case "add":
                 op = "+";
