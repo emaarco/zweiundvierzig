@@ -1292,7 +1292,11 @@ pre {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
+<<<<<<< HEAD
+  border-radius: 0.25rem;
+=======
   border-radius: 2%;
+>>>>>>> 5088f0f8132f0f80b8df7bc9565cead9a98f8538
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
     .form-control {
