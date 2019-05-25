@@ -1,3 +1,9 @@
+'use strict'
+
+/**
+ * An enum representating all kinds of valid bootstrap alert-types
+ * Used to set the css-class of an alert / etc.
+ */
 const alertTypeEnum = {
     PRIMARY: "alert alert-primary",
     SECONDARY: "alert alert-secondary",

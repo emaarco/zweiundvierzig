@@ -1,3 +1,5 @@
+'use strict'
+
 import navigationTabStatusEnum from "../enum/NavigationTabStatusEnum.js";
 
 export default class CalculationLogWindow {

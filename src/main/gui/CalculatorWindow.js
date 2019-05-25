@@ -1,3 +1,5 @@
+'use strict'
+
 import calculatorButtonIdEnum from "../enum/CalculatorButtonIdEnum.js";
 
 export default class CalculatorWindow {

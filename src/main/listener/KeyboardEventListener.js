@@ -33,17 +33,24 @@ export default class KeyboardEventListener {
      * @param {String} buttonPressed contains the button pressed on the keyboard 
      */
     consumeButtonPressedEvent(buttonPressed) {
+        if (this.__isShift(buttonPressed)) {
+            return;
+        }
+
         if (this.__isValidCalculatorEvent(buttonPressed)) {
             let eventCategory = this.__determineEventCategory(buttonPressed);
             this.__passToMainListener(eventCategory, buttonPressed);
         }
     }
 
+    // ****************************************************************************************** //
+    // ***************************** PRIVATE HELPER METHODS ************************************* // 
+
      /**
      * Checks if the buttonPressed-Event is a valid Calulator-Event
      * Filters out invalid buttonPressedEvents as it returns false for them.      
      * @param {String} buttonPressed contains the button pressed on the keyboard 
-     * @returns true if buttonPressed-Event is a valid Calculator Event, false if not 
+     * @returns {boolean} true if buttonPressed-Event is a valid Calculator Event, false if not 
      */
     __isValidCalculatorEvent(buttonPressed) {
         if (keyboardCalculatorOperationsEnum.number.includes(buttonPressed)) {
@@ -117,5 +124,18 @@ export default class KeyboardEventListener {
                 throw new Error("no valid event category given. Check the determineEventCategory function");
         }
     }
+
+    /**
+     * Determines wheter the key pressed was the shift key or not
+     * @param {String} buttonPressed pressed key
+     * @returns {boolean} true if the pressed key was the shift key, false if not
+     */
+    __isShift(buttonPressed) {
+        return buttonPressed === "Shift" 
+            ? true
+            : false;
+    }
+
+
 
 }
