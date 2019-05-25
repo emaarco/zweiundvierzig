@@ -1,14 +1,16 @@
 'use strict';
 import Term from "../data/Term.js"
+import Calculator from "./calculator.js";
+import AlertWindow from "../gui/AlertWindow.js";
 
 export default class TermBuilder {
 
     /**
      * Constructor which initializes the needed classes Term, Calculator and AlertWindows
      * 
-     * @param {*} term 
-     * @param {*} calculator 
-     * @param {*} alertWindow 
+     * @param {Term} term 
+     * @param {Calculator} calculator 
+     * @param {AlertWindow} alertWindow 
      */ 
     constructor(term, calculator, alertWindow) {
         this.__term = term;

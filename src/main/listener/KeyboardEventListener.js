@@ -1,35 +1,24 @@
 'use strict'
 
-import keyboardCalculatorOperationsEnum from "../enum/KeyboardCalculatorOperationsEnum.js";
-import CalculationEventListener from "./CalculationEventListener.js";
-import CalculatorOnOffEventListener from "../../main/listener/CalculatorOnOffEventListener.js";
-import KeyboardEventToCalculatorEventMapper from "../mapper/KeyboardToCalculatorMapper.js";
-import AlertWindow from "../gui/AlertWindow.js";
+import KeyboardEventHandler from "../handler/KeyboardEventHandler.js"
+
 
 /***
- * This class is used for catching and filtering keyboard events
- * as it passes them on to the mainListener which is processing the keyboard events
- * as well as additional ButtonPressEvents from the HTML-frontend
+ * This class is used for catching keyboard events
+ * It passes the keyboard events to the keyboard listener in case the listener is active.
  */
 export default class KeyboardEventListener {
 
     /**
-     * Initializes the mainListener, 
-     * which will recieve the valid incoming keyboardEvents
-     * @param {CalculationEventListener} mainListener 
-     * @param {CalculatorOnOffEventListener} onOffListener
-     * @param {AlertWindow} alertWindow
+     * 
      */
-    constructor(mainListener, onOffListener, alertWindow) {
-        this.__mainListener = mainListener;
-        this.__onOffListener = onOffListener;
-        this.__alertWindow = alertWindow;
+    constructor() {
+        this.__keyboardEventHandler;
+        this.__listenerIsActive = true;
     }
 
     /**
-     * Retrieves a buttonPressed-Event from the keyboard listener.
-     * Checks wheter the event is a valid Calculator event or not.
-     * Passes the event on to the main listener.
+     * Passes the recieved events to the keyboard event handler in case the listener is activated.
      * @param {String} buttonPressed contains the button pressed on the keyboard 
      */
     consumeButtonPressedEvent(buttonPressed) {
@@ -37,92 +26,34 @@ export default class KeyboardEventListener {
             return;
         }
 
-        if (this.__isValidCalculatorEvent(buttonPressed)) {
-            let eventCategory = this.__determineEventCategory(buttonPressed);
-            this.__passToMainListener(eventCategory, buttonPressed);
+        if (this.__listenerIsActive || this.__isESC(buttonPressed)) {
+            this.__keyboardEventHandler.handleKeyboardEvent(buttonPressed);
         }
     }
 
     // ****************************************************************************************** //
-    // ***************************** PRIVATE HELPER METHODS ************************************* // 
+    // ************************* LISTENER MAINTENDANCE METHODS ********************************** // 
 
-     /**
-     * Checks if the buttonPressed-Event is a valid Calulator-Event
-     * Filters out invalid buttonPressedEvents as it returns false for them.      
-     * @param {String} buttonPressed contains the button pressed on the keyboard 
-     * @returns {boolean} true if buttonPressed-Event is a valid Calculator Event, false if not 
+    /**
+     * Activates the keyboard listener needed to process calculation events
      */
-    __isValidCalculatorEvent(buttonPressed) {
-        if (keyboardCalculatorOperationsEnum.number.includes(buttonPressed)) {
-            return true;
-        }
-        if (keyboardCalculatorOperationsEnum.operator.includes(buttonPressed)) {
-            return true;
-        }
-        if (keyboardCalculatorOperationsEnum.seperator.includes(buttonPressed)) {
-            return true;
-        }
-        if (keyboardCalculatorOperationsEnum.specialOps.includes(buttonPressed)) {
-            return true;
-        }
-        if (keyboardCalculatorOperationsEnum.onOff.includes(buttonPressed)) {
-            return true;
-        }
-        this.__alertWindow.publishInvalidKeyboardInputWarning(buttonPressed);
-        return false;
-    }
-
-
-    /***
-     * Determines the event-category of the buttonPressed-Event.
-     * The event category gets used to call the mainListener
-     * @param {String} buttonPressed contains the button pressed on the keyboard 
-     * @returns event category
-     */
-    __determineEventCategory(buttonPressed) {
-    
-        if (keyboardCalculatorOperationsEnum.number.includes(buttonPressed)) {
-            return "numberEvent";
-        } else if (keyboardCalculatorOperationsEnum.operator.includes(buttonPressed)) {
-            return "operatorEvent";
-        } else if (keyboardCalculatorOperationsEnum.seperator.includes(buttonPressed)) {
-            return "numberEvent";
-        } else if (keyboardCalculatorOperationsEnum.specialOps.includes(buttonPressed)) {
-            return "specialEvent";
-        } else if (keyboardCalculatorOperationsEnum.onOff.includes(buttonPressed)) {
-            return "onOffEvent";
-        } else {
-            return "unknownEvent";
-        }
+    activateKeyboardListener() {
+        this.__listenerIsActive = true;
     }
 
     /**
-     * Passes the button pressed on the keyboard to his corresponding mainListener method.
-     * @param {String} eventCategory category determining which mainListener method will be called
-     * @param {String} buttonPressed contains the button pressed on the keyboard 
+     * Deactivates the keyboard listener needed to process calculation events
+     * If the listener is inactive, no more events will be published to the subscribers
      */
-    __passToMainListener(eventCategory, buttonPressed) {
-        buttonPressed = KeyboardEventToCalculatorEventMapper.mapKeyboardToCalculatorEvent(buttonPressed);
-        switch (eventCategory) {
-            case "numberEvent": 
-                this.__mainListener.numberEvent(buttonPressed);
-                break;
+    deactivateKeyboardListener() {
+        this.__listenerIsActive = false;
+    }
 
-            case "operatorEvent": 
-                this.__mainListener.operatorEvent(buttonPressed);
-                break; 
-
-            case "specialEvent": 
-                this.__mainListener.specialEvent(buttonPressed);
-                break; 
-
-            case "onOffEvent": 
-                this.__onOffListener.consumeOnOffEvent();
-                break;
-
-            default: 
-                throw new Error("no valid event category given. Check the determineEventCategory function");
-        }
+    /**
+     * 
+     */
+    setKeyboardEventHandler(keyboardEventHandler) {
+        this.__keyboardEventHandler = keyboardEventHandler
     }
 
     /**
@@ -136,6 +67,16 @@ export default class KeyboardEventListener {
             : false;
     }
 
-
-
+    /**
+     * Determines wheter the key pressed was the escape key or not.
+     * needs to be checked in case the calculator is offline! 
+     * -> in case the hole keyboard would be offline it wouldnt be possible to turn it on again
+     * @param {String} buttonPressed pressed key
+     * @returns {boolean} true if the pressed key was the escape key, false if not
+     */
+    __isESC(buttonPressed) {
+        return buttonPressed === "Escape" 
+            ? true
+            : false;
+    }
 }
