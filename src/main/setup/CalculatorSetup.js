@@ -1,7 +1,6 @@
 'use strict'
 
-import CalculatorEventListener from "../listener/CalculationEventListener.js";
-import CalculatorOnOffEventListener from "../listener/CalculatorOnOffEventListener.js";
+import CalculationEventListener from "../listener/CalculationEventListener.js";
 import CalculatorWindow from "../gui/CalculatorWindow.js";
 import AlertWindow from "../gui/AlertWindow.js";
 import CalculationLogWindow from "../gui/CalculationLogWindow.js";
@@ -21,38 +20,36 @@ export default class CalculatorSetup {
     /**
      * Setting up the onclick-Events of the html-document calculator buttons
      * addEventListener expects a function as parameter. () => returns the needed function
-     * @param {CalculatorEventListener} onClickListener listener to be called in onClick-Events
+     * @param {CalculationEventListener} calculatorButtonListener listener to be called in onClick-Events
      * @param {CalculatorOnOffListener} calculatorOnOffListener listener to be called in on/off-Events
      */
-    setupCalculatorButtonListeners(onClickListener, calculatorOnOffListener) {
-        if (onClickListener instanceof CalculatorEventListener
-            && calculatorOnOffListener instanceof CalculatorOnOffEventListener) {
-
+    setupCalculatorButtonListeners(calculatorButtonListener) {
+        if (calculatorButtonListener instanceof CalculationEventListener) {
             // Setting up the buttons representing a number
-            document.getElementById("bttn0").addEventListener("click", () => onClickListener.numberEvent(0), false);
-            document.getElementById("bttn1").addEventListener("click", () => onClickListener.numberEvent(1), false);
-            document.getElementById("bttn2").addEventListener("click", () => onClickListener.numberEvent(2), false);
-            document.getElementById("bttn3").addEventListener("click", () => onClickListener.numberEvent(3));
-            document.getElementById("bttn4").addEventListener("click", () => onClickListener.numberEvent(4));
-            document.getElementById("bttn5").addEventListener("click", () => onClickListener.numberEvent(5));
-            document.getElementById("bttn6").addEventListener("click", () => onClickListener.numberEvent(6));
-            document.getElementById("bttn7").addEventListener("click", () => onClickListener.numberEvent(7));
-            document.getElementById("bttn8").addEventListener("click", () => onClickListener.numberEvent(8));
-            document.getElementById("bttn9").addEventListener("click", () => onClickListener.numberEvent(9));
-            document.getElementById("bttnAns").addEventListener("click", () => onClickListener.numberEvent("ANS"));
-            document.getElementById("bttnSep").addEventListener("click", () => onClickListener.numberEvent("SEP"));
+            document.getElementById("bttn0").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(0), false);
+            document.getElementById("bttn1").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(1), false);
+            document.getElementById("bttn2").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(2), false);
+            document.getElementById("bttn3").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(3));
+            document.getElementById("bttn4").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(4));
+            document.getElementById("bttn5").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(5));
+            document.getElementById("bttn6").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(6));
+            document.getElementById("bttn7").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(7));
+            document.getElementById("bttn8").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(8));
+            document.getElementById("bttn9").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent(9));
+            document.getElementById("bttnAns").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent("ANS"));
+            document.getElementById("bttnSep").addEventListener("click", () => calculatorButtonListener.consumeNumberEvent("SEP"));
 
             // Setting up the buttons representing calculation operators
-            document.getElementById("bttnMultiply").addEventListener("click", () => onClickListener.operatorEvent("multiply"));
-            document.getElementById("bttnSubtract").addEventListener("click", () => onClickListener.operatorEvent("subtract"));
-            document.getElementById("bttnAdd").addEventListener("click", () => onClickListener.operatorEvent("add"));
-            document.getElementById("bttnDivide").addEventListener("click", () => onClickListener.operatorEvent("divide"));
-            document.getElementById("bttnCalc").addEventListener("click", () => onClickListener.operatorEvent("calculate"));
+            document.getElementById("bttnMultiply").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("multiply"));
+            document.getElementById("bttnSubtract").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("subtract"));
+            document.getElementById("bttnAdd").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("add"));
+            document.getElementById("bttnDivide").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("divide"));
+            document.getElementById("bttnCalc").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("calculate"));
 
             // Setting up the buttons representing special operations
-            document.getElementById("bttnClearAll").addEventListener("click", () => onClickListener.specialEvent("CLEAR_ALL"));
-            document.getElementById("bttnClearLast").addEventListener("click", () => onClickListener.specialEvent("CLEAR_LAST"));
-            document.getElementById("bttnOnOff").addEventListener("click", () => calculatorOnOffListener.consumeOnOffEvent());
+            document.getElementById("bttnClearAll").addEventListener("click", () => calculatorButtonListener.consumeSpecialEvent("CLEAR_ALL"));
+            document.getElementById("bttnClearLast").addEventListener("click", () => calculatorButtonListener.consumeSpecialEvent("CLEAR_LAST"));
+            document.getElementById("bttnOnOff").addEventListener("click", () => calculatorButtonListener.consumeOnOffEvent());
         }
     }
 

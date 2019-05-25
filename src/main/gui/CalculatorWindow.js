@@ -6,24 +6,21 @@ export default class CalculatorWindow {
 
     constructor() {}
 
-    changeActivationStatus(calculatorIsOn) {
+    /**
+     * 
+     */
+    turnCalculatorOn() {
+        this.__changeButtonEnablementStatus(false);
+        this.__changeColorOfOnOffButton(true);
+    }
 
-        calculatorButtonIdEnum.numberButton.forEach((bttnId) => {
-            document.getElementById(bttnId).disabled = !calculatorIsOn;
-        });
-        calculatorButtonIdEnum.operationButton.forEach((bttnId) => {
-            document.getElementById(bttnId).disabled = !calculatorIsOn;
-        });
-        calculatorButtonIdEnum.seperatorButton.forEach((bttnId) => {
-            document.getElementById(bttnId).disabled = !calculatorIsOn;
-        });
-        calculatorButtonIdEnum.clearButton.forEach((bttnId) => {
-            document.getElementById(bttnId).disabled = !calculatorIsOn;
-        });
-        calculatorButtonIdEnum.lastResultButton.forEach((bttnId) => {
-            document.getElementById(bttnId).disabled = !calculatorIsOn;
-        });
-        this.__changeColorOfOnOffButton(calculatorIsOn);
+    /**
+     * 
+     */
+    turnCalculatorOff() {
+        this.__changeButtonEnablementStatus(true);
+        this.__changeColorOfOnOffButton(false);
+        this.__clearWindow();
     }
 
     /**
@@ -42,6 +39,9 @@ export default class CalculatorWindow {
         this.__changeColorOfOnOffButton(true);
     }
 
+    // ****************************************************************************************** //
+    // ***************************** PRIVATE HELPER METHODS ************************************* // 
+
     /**
      * 
      * @param {Boolean} calculatorIsOn 
@@ -56,6 +56,35 @@ export default class CalculatorWindow {
                 document.getElementById(bttnId).style.backgroundColor = "#e5ffe5";
             });
         }
+    }
+
+    /**
+     * 
+     * @param {*} isDisabled 
+     */
+    __changeButtonEnablementStatus(isDisabled) {
+        calculatorButtonIdEnum.numberButton.forEach((bttnId) => {
+            document.getElementById(bttnId).disabled = isDisabled;
+        });
+        calculatorButtonIdEnum.operationButton.forEach((bttnId) => {
+            document.getElementById(bttnId).disabled = isDisabled;
+        });
+        calculatorButtonIdEnum.seperatorButton.forEach((bttnId) => {
+            document.getElementById(bttnId).disabled = isDisabled;
+        });
+        calculatorButtonIdEnum.clearButton.forEach((bttnId) => {
+            document.getElementById(bttnId).disabled = isDisabled;
+        });
+        calculatorButtonIdEnum.lastResultButton.forEach((bttnId) => {
+            document.getElementById(bttnId).disabled = isDisabled;
+        });
+    }
+
+    /**
+     * 
+     */
+    __clearWindow() {
+        document.getElementById("calculationArea").innerHTML = "";
     }
 
 }
