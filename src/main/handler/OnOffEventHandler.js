@@ -4,6 +4,7 @@ import CalculatorWindow from "../gui/CalculatorWindow.js";
 import AlertWindow from "../gui/AlertWindow.js"
 import CalculationEventListener from "../listener/CalculationEventListener.js";
 import KeyboardEventListener from "../listener/KeyboardEventListener.js";
+import TermBuilder from "../business/TermBuilder.js";
 
 /**
  * 
@@ -12,18 +13,19 @@ export default class OnOffEventHandler {
 
     /**
      * Constructor initializing the instances needed to process on/off events of the calculator
-     * @param {CalculatorWindow} calculatorWindow 
      * @param {AlertWindow} alertWindow 
      */
-    constructor(calculatorWindow, alertWindow, calculationEventListener, keyboardEventListener) {
-        if (calculatorWindow instanceof CalculatorWindow 
+    constructor(calculatorWindow, alertWindow, calculationEventListener, keyboardEventListener, termBuilder) {
+        if (calculatorWindow instanceof CalculatorWindow
             && alertWindow instanceof AlertWindow
             && calculationEventListener instanceof CalculationEventListener
-            && keyboardEventListener instanceof KeyboardEventListener) {
+            && keyboardEventListener instanceof KeyboardEventListener
+            && termBuilder instanceof TermBuilder) {
             this.__calculatorWindow = calculatorWindow;
             this.__alertWindow = alertWindow;
             this.__calculationEventListener = calculationEventListener;
             this.__keyboardEventListener = keyboardEventListener;
+            this.__termBuilder = termBuilder
         }
         this.__calculatorIsOn = true;
     }
@@ -45,6 +47,7 @@ export default class OnOffEventHandler {
             this.__alertWindow.publishCalculatorOfflineAlert();
             this.__calculationEventListener.deactivateCalculationListener();
             this.__keyboardEventListener.deactivateKeyboardListener();
+            this.__termBuilder.consumeSpecialEvent("CLEAR_ALL");
         }
     }
 }

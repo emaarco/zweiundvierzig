@@ -22,6 +22,11 @@ const calculatorWindow = new CalculatorWindow();
 const alertWindow = new AlertWindow();
 const calculationLogWindow = new CalculationLogWindow();
 
+// Initialize calculation logic
+const calculator = new Calculator();
+const term = new Term();
+const termBuilder = new TermBuilder(term, calculator, alertWindow);
+
 // Create listeners 
 const calculationEventListener = new CalculationEventListener();
 const keyboardEventListener = new KeyboardEventListener();
@@ -29,7 +34,7 @@ const navigationEventListener = new NavigationEventListener(calculationLogWindow
 
 // Create Event Handler
 const calculationEventHandler = new CalculationEventHandler();
-const onOffEventHandler = new OnOffEventHandler(calculatorWindow, alertWindow, calculationEventListener, keyboardEventListener);
+const onOffEventHandler = new OnOffEventHandler(calculatorWindow, alertWindow, calculationEventListener, keyboardEventListener, termBuilder);
 const keyboardEventHandler = new KeyboardEventHandler(onOffEventHandler, calculationEventHandler, alertWindow);
 
 // Define handlers of the listeners
@@ -37,14 +42,11 @@ calculationEventListener.setCalculationEventHandler(calculationEventHandler);
 calculationEventListener.setOnOffEventHandler(onOffEventHandler);
 keyboardEventListener.setKeyboardEventHandler(keyboardEventHandler);
 
+// Set subscriber of handler-verified events
+calculationEventHandler.addSubscriber(termBuilder);
+
 // Initialize setUp class
 const calculatorSetup = new CalculatorSetup();
-
-// Initialize calculation logic
-const calculator = new Calculator();
-const term = new Term();
-const termBuilder = new TermBuilder(term, calculator, alertWindow);
-calculationEventHandler.addSubscriber(termBuilder);
 
 // This code will run after the window loading process finished
 // Otherwise it wouldn´t be possible to initialize the eventListeners, as the html-elements havent been created till then.
