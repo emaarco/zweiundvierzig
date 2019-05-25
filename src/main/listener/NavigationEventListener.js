@@ -1,3 +1,5 @@
+'use strict'
+
 export default class NavigationEventListener {
 
     constructor(calculationLogWindow) {

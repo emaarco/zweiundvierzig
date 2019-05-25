@@ -1,83 +1,89 @@
+'use strict'
+
 import AlertMessage from "../data/AlertMessage.js";
 import alertTypeEnum from "../enum/AlertTypeEnum.js";
 
+/**
+ * A class used to publish alerts on the gui to inform the user about his input actions
+ */
 export default class AlertWindow {
 
-    constructor() { }
+    constructor() {
+        this.__currentDefaultAlert;
+    }
 
+    // ****************************************************************************************** //
+    // ***************************** USER INPUT SPECIFIC ALERTS ********************************* // 
+
+    /**
+     * Shows a five seconds lasting alert to inform the user about an invalid keyboard event.
+     * @param {String} buttonPressed asci-keycode of the pressed button
+     */
     publishInvalidKeyboardInputWarning(buttonPressed) {
-        let description = buttonPressed + " is no valid calculator-Button";
-        let note = "Allowed operations are: operators (+,-,*,/;=), numbers (0-9), enter, delete, ESC";
+        const alertTitle = "WARNING";
+        const alertDescription = buttonPressed + " is no valid calculator-Button";
+        const alertNote = "Allowed operations are: operators (+,-,*,/;=), numbers (0-9), enter, delete, ESC";
 
-        let currentMessage = this.__getCurrentlyActiveAlert();
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
 
-        let newMessage = new AlertMessage();
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
+        this.__parseMessageToDocument(newAlert);
 
         setTimeout(() => {
-            this.__parseMessageToDocument(currentMessage);
+            this.__parseMessageToDocument(this.__getCurrentDefaultAlert());
         }, 2500);
     }
 
 
+    /**
+     * Publishes an alert to inform the user, that the calculator is turned off.
+     */
     publishCalculatorOfflineAlert() {
-        let description = "The calculator is currently turned off!";
-        let note = "You need to turn it on, in order to generate calculations.";
-        let newMessage = new AlertMessage();
+        const alertTitle = "INFO";
+        const alertDescription = "The calculator is currently turned off";
+        const alertNote = "In case you want to make a calculation, you need to turn it on"
 
-        newMessage.setAlertType(alertTypeEnum.SECONDARY);
-        newMessage.setAlertTitle("OFFLINE:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.SECONDARY, alertTitle, alertDescription, alertNote, false)
 
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishCalculatorOnlineAlert() {
-        let description = "The calculator is turned on. You can enter your calculation now!";
-        let note = "You can use either your keyboard or the displayed buttons to enter a valid term.";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.INFO);
-        newMessage.setAlertTitle("INFO:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
+        this.__parseMessageToDocument(newAlert);
     }
 
     /**
-     * The Following Alerts are Term Specific 
+     * Publishes an alert to inform the user, that the calculator is turned on
      */
+    publishCalculatorOnlineAlert() {
+        const alertTitle = "INFO";
+        const alertDescription = "The calculator is turned on. You can enter your calculation now!";
+        const alertNote = "You can use either your keyboard or the displayed buttons to enter a valid term.";
+
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, true);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    // ****************************************************************************************** //
+    // ***************************** TERM SPECIFIC ALERTS *************************************** // 
+
+    /**
+     * 
+     */    
     publishSeperatorAlreadySetAlert() {
-        let description = "You have already set a seperator. ";
-        let note = "You cant have two seperators in one number!";
-        let newMessage = new AlertMessage();
+        const alertTitle = "INFO";
+        const alertDescription = "You have already set a seperator!";
+        const alertNote = "You cant have two seperators in one number!";
 
-        newMessage.setAlertType(alertTypeEnum.INFO);
-        newMessage.setAlertTitle("INFO:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
 
-        this.__parseMessageToDocument(newMessage);
+        this.__parseMessageToDocument(newAlert);
     }
 
     publishMinusMinusIsPlusAlert() {
-        let description = "You entered two consecutive minus signs, thats a plus!";
-        let note = "- + - = +";
-        let newMessage = new AlertMessage();
+        const alertTitle = "EASTEREGG";
+        const alertDescription = "You entered two consecutive minus signs, thats a plus!";
+        const alertNote = "- + - = +";        
 
-        newMessage.setAlertType(alertTypeEnum.INFO);
-        newMessage.setAlertTitle("Easteregg:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
 
-        this.__parseMessageToDocument(newMessage);
+        this.__parseMessageToDocument(newAlert);
     }
 
     /**
@@ -87,105 +93,107 @@ export default class AlertWindow {
      * @param {*} op2 
      */
     publishReplaceOperatorAlert(op1, op2) {
-        let description = "You cant input two operators consecutively.";
-        let note = "Replaced operator " + op1 + " with " + op2;
-        let newMessage = new AlertMessage();
+        const alertTitle = "WARNING:";
+        const alertDescription = "You cant input two operators consecutively.";
+        const alertNote = "Replaced operator " + op1 + " with " + op2;
+        
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
-        newMessage.setAlertType(alertTypeEnum.WARNING);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    } 
+        this.__parseMessageToDocument(newAlert);
+    }
 
     publishTooManyOperatorAlert() {
-        let description = "You are only allowed to use one operator per calculation!";
-        let note = "Hit equal before inserting next calculation!";
-        let newMessage = new AlertMessage();
+        const alertTitle = "WARNING:";
+        const alertDescription = "You are only allowed to use one operator per calculation!";
+        const alertNote = "Hit equal before inserting next calculation!";
 
-        newMessage.setAlertType(alertTypeEnum.WARNING);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
-        this.__parseMessageToDocument(newMessage);
+        this.__parseMessageToDocument(newAlert);
     }
 
     publishMissingFirstNumberAlert() {
-        let description = "Can't calculate with missing values!";
-        let note = "Please insert values!";
-        let newMessage = new AlertMessage();
+        const alertTitle = "WARNING:";
+        const alertDescription = "Can't calculate with missing values!";
+        const alertNote = "Please insert values!";
 
-        newMessage.setAlertType(alertTypeEnum.WARNING);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
-        this.__parseMessageToDocument(newMessage);
+        this.__parseMessageToDocument(newAlert);
     }
 
     publishMissingOperatorAlert() {
-        let description = "Can't calculate without an operator!";
-        let note = "Please enter an operator!";
-        let newMessage = new AlertMessage();
+        const alertTitle = "WARNING:";
+        const alertDescription = "Can't calculate without an operator!";
+        const alertNote = "Please enter an operator!";
 
-        newMessage.setAlertType(alertTypeEnum.WARNING);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+        
+        this.__parseMessageToDocument(newAlert);
     }
 
     publishMissingSecondNumberAlert() {
-        let description = "Can't calculate without a second value!";
-        let note = "Enter a second value!";
-        let newMessage = new AlertMessage();
+        const alertTitle = "WARNING:";
+        const alertDescription = "Can't calculate without a second value!";
+        const alertNote = "Enter a second value!";
 
-        newMessage.setAlertType(alertTypeEnum.WARNING);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
-        this.__parseMessageToDocument(newMessage);
+        this.__parseMessageToDocument(newAlert);
     }
 
     publishEnterTheVoidAlert(voidCount) {
         if (voidCount >= 5) {
             document.body.style.backgroundImage = "url('../../../img/The_Void.jpg')"; //https://wiki.godvillegame.com/images/f/f7/The_Void.jpg
             document.getElementsByClassName("container")[0].style.visibility = "hidden";
-            
+
             setTimeout(() => {
                 document.getElementsByClassName("container")[0].style.visibility = "visible";
                 document.body.style.backgroundImage = "none";
             }, 5000);
         }
-        let description = "You can't delete nothing! Stop hitting backspace!";
-        let note = "Do you want to enter the void?";
-        let newMessage = new AlertMessage();
 
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("THE VOID:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
+        const alertTitle = "THE VOID:";
+        const alertDescription = "You can't delete nothing! Stop hitting backspace!";
+        const alertNote = "Do you want to enter the void?";
 
-        this.__parseMessageToDocument(newMessage);
+        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+        
+        this.__parseMessageToDocument(newAlert);
     }
 
     // ****************************************************************************************** //
+    // ***************************** PRIVATE HELPER METHODS ************************************* // 
 
-    __getCurrentlyActiveAlert() {
-        let alertMessage = new AlertMessage();
+    /**
+     * Factory method to create a new alert.
+     * Will set the alert created, as the default alert, in case 'isDefault' is true
+     * @param {alertTypeEnum} alertType type of the alert (css-id / class type)
+     * @param {String} alertTitle alert title to be shown in the gui
+     * @param {String} alertDescription alert description to be shown in the gui
+     * @param {String} alertNote alert note to be shown in the gui
+     * @param {boolean} isDefault defines whether the alert is an default alert or not
+     */
+    __buildDefaultAlert(alertType, alertTitle, alertDescription, alertNote, isDefault) {
+        const newAlert = new AlertMessage(alertType, alertTitle, alertDescription, alertNote, isDefault);
 
-        alertMessage.setAlertType(document.getElementById("alertMessage").className);
-        alertMessage.setAlertTitle(document.getElementById("alertHeading").innerHTML);
-        alertMessage.setAlertDescription(document.getElementById("alertDescription").innerHTML);
-        alertMessage.setAlertNote(document.getElementById("alertNote").innerHTML);
+        newAlert.setAlertType(alertType);
+        newAlert.setAlertTitle(alertTitle);
+        newAlert.setAlertDescription(alertDescription);
+        newAlert.setAlertNote(alertNote);
+        newAlert.setIsDefaultAlert(isDefault);
 
-        return alertMessage;
+        if (newAlert.isDefaultAlert) {
+            this.__currentDefaultAlert = newAlert;
+        }
+
+        return newAlert;   
     }
 
+    /**
+     * Displays a new alert in the gui
+     * @param {AlertMessage} alertMessage alert to be shown in the gui
+     */
     __parseMessageToDocument(alertMessage) {
         if (alertMessage instanceof AlertMessage) {
             document.getElementById("alertMessage").className = alertMessage.alertType;
@@ -193,5 +201,23 @@ export default class AlertWindow {
             document.getElementById("alertDescription").innerHTML = alertMessage.alertDescription;
             document.getElementById("alertNote").innerHTML = alertMessage.alertNote;
         }
+    }
+
+    /**
+     * Setter method to set a default Alert
+     * @param {AlertMessage} defaultAlert 
+     */
+    __setCurrentDefaultAlert(defaultAlert) {
+        if (defaultAlert instanceof AlertMessage) {
+            this.__currentDefaultAlert = defaultAlert;
+        }
+    }
+
+    /**
+     * Getter metohd to retrieve to current default alert
+     * @returns current Default alert
+     */
+    __getCurrentDefaultAlert() {
+        return this.__currentDefaultAlert;
     }
 } 

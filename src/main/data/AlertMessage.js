@@ -1,3 +1,5 @@
+'use strict'
+
 import alertTypeEnum from "../enum/AlertTypeEnum.js";
 
 export default class AlertMessage {
@@ -7,6 +9,7 @@ export default class AlertMessage {
         this.alertTitle;
         this.alertDescription;
         this.alertNote;
+        this.isDefaultAlert;
     }
 
     setAlertType(alertType) {
@@ -27,6 +30,10 @@ export default class AlertMessage {
         this.alertNote = alertNote;
     }
 
+    setIsDefaultAlert(isDefault) {
+        this.isDefaultAlert = isDefault;
+    }
+
     __alertTypeIsValid(recievedAlertType) {
         for (let alertType in alertTypeEnum) {
             if (recievedAlertType === alertTypeEnum[alertType]) {
@@ -35,4 +42,5 @@ export default class AlertMessage {
         }
         return false;
     }
+
 }
