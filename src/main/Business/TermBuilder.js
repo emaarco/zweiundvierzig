@@ -1,13 +1,16 @@
 'use strict';
+import Term from "../data/Term.js"
+import Calculator from "./calculator.js";
+import AlertWindow from "../gui/AlertWindow.js";
 
 export default class TermBuilder {
 
     /**
      * Constructor which initializes the needed classes Term, Calculator and AlertWindows
      * 
-     * @param {*} term 
-     * @param {*} calculator 
-     * @param {*} alertWindow 
+     * @param {Term} term 
+     * @param {Calculator} calculator 
+     * @param {AlertWindow} alertWindow 
      */ 
     constructor(term, calculator, alertWindow) {
         this.__term = term;
@@ -27,67 +30,35 @@ export default class TermBuilder {
      */
     consumeNumberEvent(num) {
         console.log("consumeNumberEvent: "+num);
+        if (this.__term.flag === "result") {
+            this.__term.clearTerm();
+        }
         if (num === "SEP") {
             num = ".";
         }
-
-        switch (this.__term.flag) {
-            case "num1":
-                this.numEventFlagNum1(num);
-                break;
-            case "operator":
-                this.numEventFlagOperator(num);
-                break;
-            case "num2":
-                this.numEventFlagNum2(num);
-                break;
-            case "result":
-                this.numEventFlagResult(num);
-                break;
-            default:
-                console.log("invalid flag" + this.__term.flag);
-                break;
-        }
-    }
-
-    numEventFlagNum1(num) {
-        if (num === "." && this.__term.num1.includes(".")) {
+        if (num === "." && this.__term.flag === "num1" && this.__term.num1.includes(".")) {
             this.__alertWindow.publishSeperatorAlreadySetAlert();
             this.__term.termToDisplay();
-        } else {
-            this.__term.num1 += num;
-            this.__term.termToDisplay();
-        }
-    }
-
-    numEventFlagOperator(num) {
-        this.__term.num2 += num;
-        this.__term.flag = "num2";
-        this.__term.termToDisplay();
-    }
-
-    numEventFlagNum2(num) {
-        if (num === "." && this.__term.num2.includes(".")) {
+        } else if (num === "." && this.__term.flag === "num2" && this.__term.num2.includes(".")) {
             this.__alertWindow.publishSeperatorAlreadySetAlert();
             this.__term.termToDisplay();
+        } else if (num === "ANS") {
+            // TO BE FIXED ANS SUX!
+            if (this.__term.flag === "num1" || this.__term.flag === "result") {
+                this.__term.num1 = this.__term.ans;
+            } else if (this.__term.flag === "num2" || this.__term.flag === "operator") {
+                this.__term.num2 = this.__term.ans;
+                this.__term.flag = "num2";
+            }
         } else {
-            this.__term.num2 += num;
-            this.__term.termToDisplay();
-        }
-    }
-
-    numEventFlagResult(num) {
-        if (num === "." && this.__term.result.includes(".")) {
-            this.__alertWindow.publishSeperatorAlreadySetAlert();
-            this.__term.resultToDisplay();
-        } else if (num === ".") {
-            this.__term.clearTerm();
-            this.__term.num1 = this.__term.ans + ".";
-            this.__term.termToDisplay();
-        } else {
-            this.__term.clearTerm();
-            this.__term.num1 += num;
-            this.__term.termToDisplay();
+            if (this.__term.operator === "") {
+                this.__term.num1 += num;
+                this.__term.termToDisplay();
+            } else {
+                this.__term.num2 += num;
+                this.__term.flag = "num2";
+                this.__term.termToDisplay();
+            }
         }
     }
    
@@ -102,38 +73,7 @@ export default class TermBuilder {
      */
     consumeOperatorEvent(operator) {
         console.log("current operator: " + operator);
-        if (operator === "divide" && parseFloat(this.__term.num1) === 0) {
-            this.__alertWindow.publishDivisionZero();
-            this.__term.termToDisplay();
-        } else if (this.__term.num1 === ".") {
-            this.__alertWindow.publishInvalidTerm();
-            this.__term.termToDisplay();
-        } else {
-            switch (this.__term.flag) {
-                case "num1":
-                    this.opEventFlagNum1(operator);
-                    break;
-                case "operator":
-                    this.opEventFlagOperator(operator);
-                    break;
-                case "num2":
-                    this.opEventFlagNum2(operator);
-                    break;
-                case "result":
-                    this.opEventFlagResult(operator);
-                    break;
-                default:
-                    console.log("invalid flag" + this.__term.flag);
-                    break;
-            }
-        }
-    }
-
-    opEventFlagNum1 (operator) {
-        if (operator === "calculate") {
-            this.__alertWindow.publishInvalidTerm();
-            this.__term.termToDisplay();
-        } else if (this.__term.num1 != "") {
+        if (this.__term.flag === "num1" && this.__term.num1 != "") {
             this.__term.flag = "operator";
             this.__term.operator = operator;
             this.__term.termToDisplay();
@@ -145,50 +85,32 @@ export default class TermBuilder {
                 this.__alertWindow.publishMissingFirstNumberAlert();
                 this.__term.termToDisplay();
             }
-        }
-    }
-
-    opEventFlagOperator (operator) {
-        if (this.__term.flag === "operator") {
+        } else if (this.__term.flag === "operator") {
             if (this.__term.operator === "subtract" && operator === "subtract") {
                 this.__term.operator = "add";
                 this.__alertWindow.publishMinusMinusIsPlusAlert();
-                this.__term.termToDisplay();
-            } else if (operator === "calculate") {
-                this.__alertWindow.publishInvalidTerm();
                 this.__term.termToDisplay();
             } else {
                 this.__alertWindow.publishReplaceOperatorAlert(this.__term.operator, operator);
                 this.__term.operator = operator;
                 this.__term.termToDisplay();
             }
-        }
-    }
-
-    opEventFlagNum2 (operator) {
-        if (operator === "calculate") {
-            this.consumeCalculateEvent();
-        } else {
-            this.__alertWindow.publishTooManyOperatorAlert();
-            this.__term.termToDisplay();
-        }
-    }
-
-    opEventFlagResult (operator) {
-        if (operator === "calculate") {
-            this.__term.resultToDisplay();
-        } else {
+        } else if (this.__term.flag === "result") {
             this.__term.clearTerm();
             this.__term.num1 = this.__term.ans;
             this.__term.operator = operator;
             this.__term.flag = "operator";
             this.__term.termToDisplay();
-        }
+        } else {
+            this.__alertWindow.publishTooManyOperatorAlert();
+            this.__term.termToDisplay();
+        }       
     }
 
     /**
      * If user hits the equal sign, check if the term is valid 
-     * If its Valid run the calculator & Change flag to result
+     * If its Valid run the calculator
+     * Change flag to result
      * 
      */
     consumeCalculateEvent() {
@@ -201,13 +123,8 @@ export default class TermBuilder {
         } else if (this.__term.num2 === "") {
             this.__alertWindow.publishMissingSecondNumberAlert();
             this.__term.termToDisplay();
-        } else if (this.__term.num1 === "." || this.__term.num2 === ".") {
-            this.__alertWindow.publishInvalidTerm();
-            this.__term.termToDisplay();
-        } else if (this.__term.operator === "divide" && (parseFloat(this.__term.num1) === 0 || parseFloat(this.__term.num2) === 0)) {
-            this.__alertWindow.publishDivisionZero();
-            this.__term.termToDisplay();
         } else {
+            // call calculator
             this.__calculator.calculate(this.__term);
             this.__term.flag = "result";
             this.__term.resultToDisplay();
@@ -228,6 +145,7 @@ export default class TermBuilder {
         if (special === "CLEAR_ALL") {
             this.__term.clearTerm();
             this.__term.termToDisplay();
+            this.__alertWindow.publishClearAllAlert();
         } else if (special === "CLEAR_LAST") {
             if (this.__term.flag === "result") {
                 this.__term.result =  this.__term.result.slice(0, this.__term.result.length-1);
