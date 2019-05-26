@@ -1,11 +1,13 @@
 'use strict';
 
+import operatorEnum from "../enum/OperatorEnum.js";
+
 export default class Term {
 
     /**
      * Constructor which initializes the term with empty strings
      * Possible flags:
-     *  num1, operator, num2, result, ans1, ans2
+     *  num1, operator, num2, result
      */
     constructor() {
         this.num1 = "";
@@ -17,28 +19,9 @@ export default class Term {
         console.log("Empty Term Initialized");
     }
 
-    // add enum for operator
     termToDisplay() {
-        let op = "";
-        // add enum function
-        switch (this.operator) {
-            case "add":
-                op = "+";
-                break;
-            case "subtract":
-                op = "-";
-                break;
-            case "divide":
-                op = "/";
-                break;
-            case "multiply":
-                op = "*";
-                break;
-            default:
-                break;
-        }
         console.log("current flag:" + this.flag);
-        document.getElementById("calculationArea").innerHTML = this.num1 + op + this.num2;
+        document.getElementById("calculationArea").innerHTML = this.num1 + operatorEnum(this.operator) + this.num2;
     }
 
     resultToDisplay() {
