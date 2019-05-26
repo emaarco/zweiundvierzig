@@ -1,52 +1,52 @@
-'use strict' 
+/**
+ * Testing the keyboard listener 
+ * - setting it active / inactive and check the behaviour. 
+ */
 
-import CalculationEventListener from "../../main/listener/CalculationEventListener.js";
-import AlertWindow from "../../main/gui/AlertWindow.js"
-import CalculatorOnOffEventListener from "../../main/listener/CalculatorOnOffEventListener.js";
+import KeyboardEventHandler from "../../main/handler/KeyboardEventHandler.js";
 import KeyboardEventListener from "../../main/listener/KeyboardEventListener.js";
-import CalculatorWindow from "../../main/gui/CalculatorWindow.js";
 
-// Mocking the required classes
-jest.mock("../../main/gui/AlertWindow.js");
-jest.mock("../../main/mapper/KeyboardToCalculatorMapper.js");
-jest.mock("../../main/listener/CalculationEventListener.js");
-jest.mock("../../main/listener/CalculatorOnOffEventListener.js");
-jest.mock("../../main/gui/CalculatorWindow.js");
+ jest.mock("../../main/handler/KeyboardEventHandler.js");
 
+ const keyboardEventHandler = new KeyboardEventHandler();
+ const listenerUnderTest = new KeyboardEventListener();
+ listenerUnderTest.setKeyboardEventHandler(keyboardEventHandler);
 
-// Create mock instances
-let alertWindowMock = new AlertWindow();
-let calculatorWindowMock = new CalculatorWindow();
-let calculatorOnOffEventListener = new CalculatorOnOffEventListener(calculatorWindowMock, alertWindowMock);
-let calculationEventListener = new CalculationEventListener();
+ /**
+  * Resets the handleKeyboardEvent mock, as it gets called more than one time
+  */
+ afterEach(() => {
+    keyboardEventHandler.handleKeyboardEvent.mockClear();
+ });
 
-// create instances underTest
-let listenerUnderTest = new KeyboardEventListener(
-    calculationEventListener, calculatorOnOffEventListener, alertWindowMock
-);
-
-test("retrieve and publish numberEvent", () => {
+ /**
+  * Pass valid keyboard events to the keyboard event handler
+  */
+ test("pass valid keyboard event to the handler", () => {
     listenerUnderTest.consumeButtonPressedEvent("5");
-    expect(listenerUnderTest.__mainListener.numberEvent).toHaveBeenCalledTimes(1);
-});
-
-test("retrieve and publish operatior event", () => {
-    listenerUnderTest.consumeButtonPressedEvent("+");
-    expect(listenerUnderTest.__mainListener.operatorEvent).toHaveBeenCalledTimes(1);
-});
-
-test("retrieve and publish specialEvent", () => {
     listenerUnderTest.consumeButtonPressedEvent("Backspace");
-    expect(listenerUnderTest.__mainListener.specialEvent).toHaveBeenCalledTimes(1);
-});
+    listenerUnderTest.consumeButtonPressedEvent(".");
 
-test("retrieve and publish seperatorEvent", () => {
-    listenerUnderTest.consumeButtonPressedEvent(",");
-    // called 2 times, as it allready got called one time in another test (result still cached)
-    expect(listenerUnderTest.__mainListener.numberEvent).toHaveBeenCalledTimes(2);
-});
+    expect(keyboardEventHandler.handleKeyboardEvent).toHaveBeenCalledTimes(3);
+ });
 
-test("retrieve and publish onOffEvent", () => {
+ /**
+  * Do not pass valid events, when the listener is inactive.
+  * Just onOffEvents are allowed to pass, as they are needed to turn the calculator on again
+  */
+ test("do not pass valid events, when listener is inactive", () => {
+    listenerUnderTest.deactivateKeyboardListener();
+    expect(listenerUnderTest.__listenerIsActive).toBe(false);
+    listenerUnderTest.consumeButtonPressedEvent("5");
+    expect(keyboardEventHandler.handleKeyboardEvent).toHaveBeenCalledTimes(0);
+ });
+
+ /**
+  * Do pass onOffEvents, despite the listener is inactive
+  */
+ test("do pass onOffEvent, when listener is inactive", () => {
+    listenerUnderTest.deactivateKeyboardListener();
+    expect(listenerUnderTest.__listenerIsActive).toBe(false);
     listenerUnderTest.consumeButtonPressedEvent("Escape");
-    expect(listenerUnderTest.__onOffListener.consumeOnOffEvent).toHaveBeenCalledTimes(1);
-});
+    expect(keyboardEventHandler.handleKeyboardEvent).toHaveBeenCalledTimes(1);
+ });

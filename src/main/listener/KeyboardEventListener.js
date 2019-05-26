@@ -10,7 +10,8 @@ import KeyboardEventHandler from "../handler/KeyboardEventHandler.js"
 export default class KeyboardEventListener {
 
     /**
-     * 
+     * Constructor defining a keyboardEventHandler 
+     * and setting the listener to be active
      */
     constructor() {
         this.__keyboardEventHandler;
@@ -50,7 +51,8 @@ export default class KeyboardEventListener {
     }
 
     /**
-     * 
+     * Initializes the keyboardEventHandler, which retrieves keyboardEvents, when the listener is active.
+     * @param {KeyboardEventHandler} keyboardEventHandler a keyboardEventHandler
      */
     setKeyboardEventHandler(keyboardEventHandler) {
         this.__keyboardEventHandler = keyboardEventHandler

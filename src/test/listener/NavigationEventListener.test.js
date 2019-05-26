@@ -12,12 +12,12 @@ const listenerUnderTest = new NavigationEventListener(calculationLogWindow);
 
 test ("switch to last calculations tab when action occured", () => {
     listenerUnderTest.pressedLastCalculationsTab();
-    expect(listenerUnderTest.__calculationLogWindow.switchToLastCalculationsTab).toHaveBeenCalledTimes(1);
+    expect(calculationLogWindow.switchToLastCalculationsTab).toHaveBeenCalledTimes(1);
 });
 
 test ("switch to save/load tab when action occured", () => {
     listenerUnderTest.pressedSaveAndLoadTab();
-    expect(listenerUnderTest.__calculationLogWindow.switchToSaveAndLoadTab).toHaveBeenCalledTimes(1);
+    expect(calculationLogWindow.switchToSaveAndLoadTab).toHaveBeenCalledTimes(1);
 });
 
 

@@ -7,7 +7,9 @@ import KeyboardEventListener from "../listener/KeyboardEventListener.js";
 import TermBuilder from "../business/TermBuilder.js";
 
 /**
- * 
+ * A class which is processing onOffEvents from the keyboard / the calculator gui buttons.
+ * Deactivates all kind of needed objects to make calculations, when the calculator was turned off
+ * Activates all kind of needed objects to make calculations, when the calculator is turned on
  */
 export default class OnOffEventHandler {
 
@@ -31,7 +33,7 @@ export default class OnOffEventHandler {
     }
 
     /**
-     * A method that handles on / off-Events of the calculator
+     * A method that handles on / off-Events from the keyboard / the calculation gui buttons
      * The events are used for turning the calculator on / shutting it off.
      */
     handleOnOffEvent() {

@@ -14,7 +14,7 @@ export default class CalculationEventListener {
      * A constructor which initializes an empty set of subscribers.
      * and defines an onOffEventHandler / calculationEventHandler
      */
-    constructor(onOffEventHandler, calculationEventHandler) {
+    constructor() {
         this.__listenerIsActive = true;
         this.__onOffEventHandler;
         this.__calculationEventHandler;
@@ -51,7 +51,8 @@ export default class CalculationEventListener {
     }
 
     /**
-     * 
+     * Consumes an onOffEvent from the calculator gui buttons and publishes
+     * it to the onOffEventHandler. (also if the listener is inactive!)
      */
     consumeOnOffEvent() {
         this.__onOffEventHandler.handleOnOffEvent();
@@ -62,6 +63,7 @@ export default class CalculationEventListener {
 
     /**
      * Activates the keyboard listener needed to process calculation events
+     * If the listener is active, all kind of events will be pushed to the handlers
      */
     activateCalculationListener() {
         this.__listenerIsActive = true;
@@ -69,23 +71,33 @@ export default class CalculationEventListener {
 
     /**
      * Deactivates the keyboard listener needed to process calculation events
-     * If the listener is inactive, no more events will be published to the subscribers
+     * If the listener is inactive, no more events will be published to the handlers
+     * (except onOffEvents, as without them it wouldn´t be possible to turn the calculator on again)
      */
     deactivateCalculationListener() {
         this.__listenerIsActive = false;
     }
 
     /**
-     * 
+     * Initializes the calculationEventHandler of the CalculationEventListener
+     * The calculationEventHandler retrieves all calculation related gui button events
+     * (numberEvents / specialEvents / operatorEvents)
+     * @param {calculationEventHandler} calculationEventHandler a calculation event handler
      */
     setCalculationEventHandler(calculationEventHandler) {
-        this.__calculationEventHandler = calculationEventHandler;
+        if (calculationEventHandler instanceof CalculationEventHandler) {
+            this.__calculationEventHandler = calculationEventHandler;
+        }
     }
 
     /**
-     * 
+     * Initializes the onOffEventHandler of the CalculationEventListener
+     * The onOffEventHandler retrieves all on / off relates gui button events
+     * @param {OnOffEventHandler} onOffEventHandler an onOffEventHandler
      */
     setOnOffEventHandler(onOffEventHandler) {
-        this.__onOffEventHandler = onOffEventHandler;
+        if (onOffEventHandler instanceof OnOffEventHandler) { 
+            this.__onOffEventHandler = onOffEventHandler;
+        }
     }
 }

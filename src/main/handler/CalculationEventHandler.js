@@ -3,7 +3,8 @@
 import TermBuilder from "../business/TermBuilder.js";
 
 /**
- * 
+ * Handler, processing calculationEvents retrieved from the keyboard / the calculator gui buttons
+ * Passes the events to every registered subscriber.
  */
 export default class CalculationEventHandler {
 
@@ -45,7 +46,7 @@ export default class CalculationEventHandler {
     }
 
     // ****************************************************************************************** //
-    // ************************* LISTENER MAINTENDANCE METHODS ********************************** // 
+    // ************************* HANDLER MAINTENDANCE METHODS ********************************** // 
 
     /**
      * Adds a new subscriber to the list of subscribers
@@ -79,21 +80,6 @@ export default class CalculationEventHandler {
         } else {
             console.log("No subscriber known by this name");
         }
-    }
-
-    /**
-     * Activates the keyboard listener needed to process calculation events
-     */
-    activateCalculationListener() {
-        this.__listenerIsActive = true;
-    }
-
-    /**
-     * Deactivates the keyboard listener needed to process calculation events
-     * If the listener is inactive, no more events will be published to the subscribers
-     */
-    deactivateCalculationListener() {
-        this.__listenerIsActive = false;
     }
 
     // ****************************************************************************************** //
