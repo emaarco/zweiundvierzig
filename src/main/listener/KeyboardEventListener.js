@@ -23,6 +23,7 @@ export default class KeyboardEventListener {
      * @param {String} buttonPressed contains the button pressed on the keyboard 
      */
     consumeButtonPressedEvent(buttonPressed) {
+        console.log(buttonPressed);
         if (this.__isShift(buttonPressed)) {
             return;
         }

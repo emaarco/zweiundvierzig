@@ -24,7 +24,7 @@ export default class AlertWindow {
         const alertDescription = buttonPressed + " is no valid calculator-Button";
         const alertNote = "Allowed operations are: operators (+,-,*,/;=), numbers (0-9), enter, delete, ESC";
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
 
@@ -42,7 +42,7 @@ export default class AlertWindow {
         const alertDescription = "The calculator is currently turned off";
         const alertNote = "In case you want to make a calculation, you need to turn it on"
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.SECONDARY, alertTitle, alertDescription, alertNote, false)
+        const newAlert = this.__buildAlert(alertTypeEnum.SECONDARY, alertTitle, alertDescription, alertNote, false)
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -55,7 +55,7 @@ export default class AlertWindow {
         const alertDescription = "The calculator is turned on. You can enter your calculation now!";
         const alertNote = "You can use either your keyboard or the displayed buttons to enter a valid term.";
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, true);
+        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, true);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -71,7 +71,7 @@ export default class AlertWindow {
         const alertDescription = "You have already set a seperator!";
         const alertNote = "You cant have two seperators in one number!";
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -81,7 +81,7 @@ export default class AlertWindow {
         const alertDescription = "You entered two consecutive minus signs, thats a plus!";
         const alertNote = "- + - = +";        
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -97,7 +97,7 @@ export default class AlertWindow {
         const alertDescription = "You cant input two operators consecutively.";
         const alertNote = "Replaced operator " + op1 + " with " + op2;
         
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -107,7 +107,7 @@ export default class AlertWindow {
         const alertDescription = "You are only allowed to use one operator per calculation!";
         const alertNote = "Hit equal before inserting next calculation!";
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -117,7 +117,7 @@ export default class AlertWindow {
         const alertDescription = "Can't calculate with missing values!";
         const alertNote = "Please insert values!";
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -127,7 +127,7 @@ export default class AlertWindow {
         const alertDescription = "Can't calculate without an operator!";
         const alertNote = "Please enter an operator!";
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
         
         this.__parseMessageToDocument(newAlert);
     }
@@ -137,7 +137,7 @@ export default class AlertWindow {
         const alertDescription = "Can't calculate without a second value!";
         const alertNote = "Enter a second value!";
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -157,8 +157,21 @@ export default class AlertWindow {
         const alertDescription = "You can't delete nothing! Stop hitting backspace!";
         const alertNote = "Do you want to enter the void?";
 
-        const newAlert = this.__buildDefaultAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
         
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    /**
+     * Publishes an alert to inform the user, that the calculation has been deleted. 
+     */
+    publishClearAllAlert() {
+        const alertTitle = "INFO:";
+        const alertDescription = "Your recent calculation has been deleted";
+        const alertNote = "You can now start entering a new calculation";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+
         this.__parseMessageToDocument(newAlert);
     }
 
@@ -173,8 +186,9 @@ export default class AlertWindow {
      * @param {String} alertDescription alert description to be shown in the gui
      * @param {String} alertNote alert note to be shown in the gui
      * @param {boolean} isDefault defines whether the alert is an default alert or not
+     * @returns {AlertMessage} the alert, created
      */
-    __buildDefaultAlert(alertType, alertTitle, alertDescription, alertNote, isDefault) {
+    __buildAlert(alertType, alertTitle, alertDescription, alertNote, isDefault) {
         const newAlert = new AlertMessage(alertType, alertTitle, alertDescription, alertNote, isDefault);
 
         newAlert.setAlertType(alertType);
@@ -205,7 +219,7 @@ export default class AlertWindow {
 
     /**
      * Setter method to set a default Alert
-     * @param {AlertMessage} defaultAlert 
+     * @param {AlertMessage} defaultAlert new default alert
      */
     __setCurrentDefaultAlert(defaultAlert) {
         if (defaultAlert instanceof AlertMessage) {
@@ -215,7 +229,7 @@ export default class AlertWindow {
 
     /**
      * Getter metohd to retrieve to current default alert
-     * @returns current Default alert
+     * @returns {AlertMessage} current Default alert
      */
     __getCurrentDefaultAlert() {
         return this.__currentDefaultAlert;

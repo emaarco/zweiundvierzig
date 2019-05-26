@@ -21,6 +21,7 @@ afterEach(() => {
     calculationEventHandler.handleSpecialEvent.mockClear();
     calculationEventHandler.handleOperatorEvent.mockClear();
     calculationEventHandler.handleNumberEvent.mockClear();
+    calculationEventHandler.handleCalculateEvent.mockClear();
     onOffEventHandler.handleOnOffEvent.mockClear();
 });
 
@@ -51,13 +52,15 @@ test("change activation status of the listener", () => {
 test("push calculation events to handler, if listener is active", () => {
     listenerUnderTest.consumeNumberEvent("5");
     listenerUnderTest.consumeOperatorEvent("+");
-    listenerUnderTest.consumeSpecialEvent("Clear ");
+    listenerUnderTest.consumeSpecialEvent("Clear");
+    listenerUnderTest.consumeCalculateEvent();
     listenerUnderTest.consumeOnOffEvent();
 
     expect(calculationEventHandler.handleNumberEvent).toHaveBeenCalledTimes(1);
     expect(calculationEventHandler.handleOperatorEvent).toHaveBeenCalledTimes(1);
     expect(calculationEventHandler.handleSpecialEvent).toHaveBeenCalledTimes(1);
     expect(onOffEventHandler.handleOnOffEvent).toHaveBeenCalledTimes(1);
+    expect(calculationEventHandler.handleCalculateEvent).toHaveBeenCalledTimes(1);
 });
 
 /**
@@ -67,7 +70,7 @@ test("push no events to the handler, despite onOffEvents, if the listener is ina
     listenerUnderTest.deactivateCalculationListener();
     listenerUnderTest.consumeNumberEvent("5");
     listenerUnderTest.consumeOperatorEvent("+");
-    listenerUnderTest.consumeSpecialEvent("Clear ");jest
+    listenerUnderTest.consumeSpecialEvent("Clear");
     listenerUnderTest.consumeOnOffEvent();
 
     expect(listenerUnderTest.__listenerIsActive).toBe(false);

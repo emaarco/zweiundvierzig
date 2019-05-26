@@ -17,31 +17,43 @@ export default class CalculationEventHandler {
 
     /**
      * Publishes a new number event to every subscriber
-     * @param {String} calledNumber number event retrieved from gui / keyboard
+     * @param {String} numberEvent number event retrieved from gui / keyboard
      */
-    handleNumberEvent(calledNumber) {
+    handleNumberEvent(numberEvent) {
         this.__subscribers.forEach((subscriber) => {
-            subscriber.consumeNumberEvent(calledNumber); 
+            subscriber.consumeNumberEvent(numberEvent); 
         });
     }
 
     /**
      * Publishes a new operator event to every subscriber
-     * @param {String} calledOperator operator event retrieved from gui / keyboard
+     * @param {String} operatorEvent operator event retrieved from gui / keyboard
      */
-    handleOperatorEvent(calledOperator) {
+    handleOperatorEvent(operatorEvent) {
         this.__subscribers.forEach((subscriber) => {
-            subscriber.consumeOperatorEvent(calledOperator);
+            subscriber.consumeOperatorEvent(operatorEvent);
+        });
+    }
+
+    /**
+     * Publishes a calculateEvent to every subscriber
+     * @param {String} calculateEvent operator event retrieved from gui / keyboard
+     */
+    handleCalculateEvent() {
+        this.__subscribers.forEach((subscriber) => {
+            console.log("calculate");
+            subscriber.consumeCalculateEvent()
         });
     }
 
     /**
      * Publishes a new special event to every subscriber
-     * @param {String} calledEvent special event retrieved from gui / keyboard
+     * @param {String} specialEvent special event retrieved from gui / keyboard
      */
-    handleSpecialEvent(calledEvent) {
+    handleSpecialEvent(specialEvent) {
         this.__subscribers.forEach((subscriber) => {
-            subscriber.consumeSpecialEvent(calledEvent);
+            console.log(specialEvent);
+            subscriber.consumeSpecialEvent(specialEvent);
         });
     }
 

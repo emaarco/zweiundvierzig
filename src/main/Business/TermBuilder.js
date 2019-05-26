@@ -95,9 +95,6 @@ export default class TermBuilder {
                 this.__term.operator = operator;
                 this.__term.termToDisplay();
             }
-        } else if (operator === "calculate") {
-            // Marco sagen, dass er evtl das = auf ein anderes Event mappt?
-            this.consumeCalculateEvent();
         } else if (this.__term.flag === "result") {
             this.__term.clearTerm();
             this.__term.num1 = this.__term.ans;
@@ -148,6 +145,7 @@ export default class TermBuilder {
         if (special === "CLEAR_ALL") {
             this.__term.clearTerm();
             this.__term.termToDisplay();
+            this.__alertWindow.publishClearAllAlert();
         } else if (special === "CLEAR_LAST") {
             if (this.__term.flag === "result") {
                 this.__term.result =  this.__term.result.slice(0, this.__term.result.length-1);
