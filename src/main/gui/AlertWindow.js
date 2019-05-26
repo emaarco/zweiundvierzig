@@ -2,7 +2,6 @@
 
 import AlertMessage from "../data/AlertMessage.js";
 import alertTypeEnum from "../enum/AlertTypeEnum.js";
-import operatorEnum from "../enum/OperatorEnum.js";
 
 /**
  * A class used to publish alerts on the gui to inform the user about his input actions
@@ -13,14 +12,8 @@ export default class AlertWindow {
         this.__currentDefaultAlert;
     }
 
-<<<<<<< src/main/gui/AlertWindow.js
     // ****************************************************************************************** //
     // ***************************** USER INPUT SPECIFIC ALERTS ********************************* // 
-=======
-    publishInvalidKeyboardInputWarning(buttonPressed) {
-        let description = buttonPressed + " is no valid calculator-Button";
-        let note = "Allowed operations are: operators (+,-,*,/;=), numbers (0-9), enter, delete, ESC";
->>>>>>> src/main/gui/AlertWindow.js
 
     /**
      * Shows a five seconds lasting alert to inform the user about an invalid keyboard event.
@@ -31,15 +24,7 @@ export default class AlertWindow {
         const alertDescription = buttonPressed + " is no valid calculator-Button";
         const alertNote = "Allowed operations are: operators (+,-,*,/;=), numbers (0-9), enter, delete, ESC";
 
-<<<<<<< src/main/gui/AlertWindow.js
         const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
-=======
-        let newMessage = new AlertMessage();
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
->>>>>>> src/main/gui/AlertWindow.js
 
         this.__parseMessageToDocument(newAlert);
 
@@ -53,22 +38,11 @@ export default class AlertWindow {
      * Publishes an alert to inform the user, that the calculator is turned off.
      */
     publishCalculatorOfflineAlert() {
-<<<<<<< src/main/gui/AlertWindow.js
         const alertTitle = "INFO";
         const alertDescription = "The calculator is currently turned off";
         const alertNote = "In case you want to make a calculation, you need to turn it on"
 
         const newAlert = this.__buildAlert(alertTypeEnum.SECONDARY, alertTitle, alertDescription, alertNote, false)
-=======
-        let description = "The calculator is currently turned off!";
-        let note = "You need to turn it on, in order to generate calculations.";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.SECONDARY);
-        newMessage.setAlertTitle("OFFLINE:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
->>>>>>> src/main/gui/AlertWindow.js
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -77,177 +51,11 @@ export default class AlertWindow {
      * Publishes an alert to inform the user, that the calculator is turned on
      */
     publishCalculatorOnlineAlert() {
-<<<<<<< src/main/gui/AlertWindow.js
         const alertTitle = "INFO";
         const alertDescription = "The calculator is turned on. You can enter your calculation now!";
         const alertNote = "You can use either your keyboard or the displayed buttons to enter a valid term.";
 
         const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, true);
-=======
-        let description = "The calculator is turned on. You can enter your calculation now!";
-        let note = "You can use either your keyboard or the displayed buttons to enter a valid term.";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.INFO);
-        newMessage.setAlertTitle("INFO:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    /**
-     * The Following Alerts are Term Specific 
-     */
-    publishSeperatorAlreadySetAlert() {
-        let description = "You have already set a seperator. ";
-        let note = "You cant have two seperators in one number!";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.INFO);
-        newMessage.setAlertTitle("INFO:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishMinusMinusIsPlusAlert() {
-        let description = "You entered two consecutive minus signs, thats a plus!";
-        let note = "- + - = +";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.INFO);
-        newMessage.setAlertTitle("Easteregg:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishReplaceOperatorAlert(op1, op2) {
-        let description = "You cant input two operators consecutively.";
-        let note = "Replaced operator " + operatorEnum(op1) + " with " + operatorEnum(op2);
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    } 
-
-    publishTooManyOperatorAlert() {
-        let description = "You are only allowed to use one operator per calculation!";
-        let note = "Hit equal before inserting next calculation!";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.WARNING);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishMissingFirstNumberAlert() {
-        let description = "Can't calculate with missing values!";
-        let note = "Please insert values!";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishMissingOperatorAlert() {
-        let description = "Can't calculate without an operator!";
-        let note = "Please enter an operator!";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.WARNING);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishMissingSecondNumberAlert() {
-        let description = "Can't calculate without a second value!";
-        let note = "Enter a second value!";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.WARNING);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishEnterTheVoidAlert(voidCount) {
-        if (voidCount >= 5) {
-            document.body.style.backgroundImage = "url('../../../img/The_Void.jpg')"; //https://wiki.godvillegame.com/images/f/f7/The_Void.jpg
-            document.getElementsByClassName("container")[0].style.visibility = "hidden";
-            
-            setTimeout(() => {
-                document.getElementsByClassName("container")[0].style.visibility = "visible";
-                document.body.style.backgroundImage = "none";
-            }, 5000);
-        }
-        let description = "You can't delete nothing! Stop hitting backspace!";
-        let note = "Do you want to enter the void?";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("THE VOID:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishDivisionZero() {
-        let description = "Division through 0 is not allowed!";
-        let note = "Please enter a Value bigger than 0!";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishInvalidTerm() {
-        let description = "Invalid Term!";
-        let note = "Please enter a valid Value!";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
-
-        this.__parseMessageToDocument(newMessage);
-    }
-
-    publishInvalidOperator() {
-        let description = "Invalid Term!";
-        let note = "Please enter a valid Operator!";
-        let newMessage = new AlertMessage();
-
-        newMessage.setAlertType(alertTypeEnum.DANGER);
-        newMessage.setAlertTitle("WARNING:");
-        newMessage.setAlertDescription(description);
-        newMessage.setAlertNote(note);
->>>>>>> src/main/gui/AlertWindow.js
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -319,7 +127,6 @@ export default class AlertWindow {
         const alertDescription = "Can't calculate without an operator!";
         const alertNote = "Please enter an operator!";
 
-<<<<<<< src/main/gui/AlertWindow.js
         const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
         
         this.__parseMessageToDocument(newAlert);
@@ -339,12 +146,6 @@ export default class AlertWindow {
         if (voidCount >= 5) {
             document.body.style.backgroundImage = "url('../../../img/The_Void.jpg')"; //https://wiki.godvillegame.com/images/f/f7/The_Void.jpg
             document.getElementsByClassName("container")[0].style.visibility = "hidden";
-=======
-        alertMessage.setAlertType(document.getElementById("alertMessage").className);
-        alertMessage.setAlertTitle(document.getElementById("alertHeading").innerHTML);
-        alertMessage.setAlertDescription(document.getElementById("alertDescription").innerHTML);
-        alertMessage.setAlertNote(document.getElementById("alertNote").innerHTML);
->>>>>>> src/main/gui/AlertWindow.js
 
             setTimeout(() => {
                 document.getElementsByClassName("container")[0].style.visibility = "visible";
