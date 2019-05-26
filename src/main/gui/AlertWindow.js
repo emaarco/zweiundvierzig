@@ -1,5 +1,6 @@
 import AlertMessage from "../data/AlertMessage.js";
 import alertTypeEnum from "../enum/AlertTypeEnum.js";
+import operatorEnum from "../enum/OperatorEnum.js";
 
 export default class AlertWindow {
 
@@ -80,18 +81,12 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newMessage);
     }
 
-    /**
-     * TODO: ADD ENUM FOR OPS
-     * 
-     * @param {*} op1 
-     * @param {*} op2 
-     */
     publishReplaceOperatorAlert(op1, op2) {
         let description = "You cant input two operators consecutively.";
-        let note = "Replaced operator " + op1 + " with " + op2;
+        let note = "Replaced operator " + operatorEnum(op1) + " with " + operatorEnum(op2);
         let newMessage = new AlertMessage();
 
-        newMessage.setAlertType(alertTypeEnum.WARNING);
+        newMessage.setAlertType(alertTypeEnum.DANGER);
         newMessage.setAlertTitle("WARNING:");
         newMessage.setAlertDescription(description);
         newMessage.setAlertNote(note);
@@ -117,7 +112,7 @@ export default class AlertWindow {
         let note = "Please insert values!";
         let newMessage = new AlertMessage();
 
-        newMessage.setAlertType(alertTypeEnum.WARNING);
+        newMessage.setAlertType(alertTypeEnum.DANGER);
         newMessage.setAlertTitle("WARNING:");
         newMessage.setAlertDescription(description);
         newMessage.setAlertNote(note);
@@ -167,6 +162,45 @@ export default class AlertWindow {
 
         newMessage.setAlertType(alertTypeEnum.DANGER);
         newMessage.setAlertTitle("THE VOID:");
+        newMessage.setAlertDescription(description);
+        newMessage.setAlertNote(note);
+
+        this.__parseMessageToDocument(newMessage);
+    }
+
+    publishDivisionZero() {
+        let description = "Division through 0 is not allowed!";
+        let note = "Please enter a Value bigger than 0!";
+        let newMessage = new AlertMessage();
+
+        newMessage.setAlertType(alertTypeEnum.DANGER);
+        newMessage.setAlertTitle("WARNING:");
+        newMessage.setAlertDescription(description);
+        newMessage.setAlertNote(note);
+
+        this.__parseMessageToDocument(newMessage);
+    }
+
+    publishInvalidTerm() {
+        let description = "Invalid Term!";
+        let note = "Please enter a valid Value!";
+        let newMessage = new AlertMessage();
+
+        newMessage.setAlertType(alertTypeEnum.DANGER);
+        newMessage.setAlertTitle("WARNING:");
+        newMessage.setAlertDescription(description);
+        newMessage.setAlertNote(note);
+
+        this.__parseMessageToDocument(newMessage);
+    }
+
+    publishInvalidOperator() {
+        let description = "Invalid Term!";
+        let note = "Please enter a valid Operator!";
+        let newMessage = new AlertMessage();
+
+        newMessage.setAlertType(alertTypeEnum.DANGER);
+        newMessage.setAlertTitle("WARNING:");
         newMessage.setAlertDescription(description);
         newMessage.setAlertNote(note);
 

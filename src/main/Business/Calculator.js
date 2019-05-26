@@ -1,5 +1,4 @@
 'use strict';
-import Term from "../data/Term.js"
 
 export default class Calculator {
     /**

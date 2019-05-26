@@ -8,9 +8,9 @@ import CalculatorOnOffEventListener from "./src/main/listener/CalculatorOnOffEve
 import AlertWindow from "./src/main/gui/AlertWindow.js";
 import NavigationEventListener from "./src/main/listener/NavigationEventListener.js"
 import CalculationLogWindow from "./src/main/gui/CalculationLogWindow.js";
-import Calculator from "./src/main/Business/Calculator.js.js";
+import Calculator from "./src/main/Business/Calculator.js";
 import Term from "./src/main/data/Term.js";
-import TermBuilder from "./src/main/Business/TermBuilder.js.js";
+import TermBuilder from "./src/main/Business/TermBuilder.js";
 
     //TODO: add subscribers to the listener
     //TODO: add the keyboard listener
