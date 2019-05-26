@@ -34,10 +34,12 @@ test("handle valid number / operator / specialEvents", () => {
     handlerUnderTest.handleNumberEvent("5");
     handlerUnderTest.handleOperatorEvent("*");
     handlerUnderTest.handleSpecialEvent("CLEAR_ALL");
+    handlerUnderTest.handleCalculateEvent();
 
     expect(termBuilder.consumeNumberEvent).toHaveBeenCalledTimes(1);
     expect(termBuilder.consumeOperatorEvent).toHaveBeenCalledTimes(1);
     expect(termBuilder.consumeSpecialEvent).toHaveBeenCalledTimes(1);
+    expect(termBuilder.consumeCalculateEvent).toHaveBeenCalledTimes(1);
 });
 
 

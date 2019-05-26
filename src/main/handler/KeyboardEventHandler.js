@@ -7,12 +7,14 @@ import keyboardCalculatorOperationsEnum from "../enum/KeyboardCalculatorOperatio
 import KeyboardEventToCalculatorEventMapper from "../mapper/KeyboardToCalculatorMapper.js";
 
 /**
- * 
+ * A class that handles keyboard events - 
+ * it checks every event on its validity.
+ * passes valid events to a corresponding handler.
  */
 export default class KeyboardEventHandler {
 
     /**
-     * 
+     * Constructor initializing the keyboard event handler
      * @param {OnOffEventHandler} onOffEventHandler 
      * @param {CalculationEventHandler} calculationEventHandler 
      * @param {AlertWindow} alertWindow 
@@ -24,19 +26,19 @@ export default class KeyboardEventHandler {
     }
 
     /**
-     * 
-     * @param {String} buttonPressed 
+     * Passes the keyboard event to the corresponding event handler.
+     * Maps every valid event to a generalized event
+     * @param {String} buttonPressed the key pressed on the keyboard
      */
     handleKeyboardEvent(buttonPressed) {
-        
         if (this.__isValidCalculatorEvent(buttonPressed)) {
             let eventCategory = this.__determineEventCategory(buttonPressed);
+            buttonPressed = KeyboardEventToCalculatorEventMapper.mapKeyboardToCalculatorEvent(buttonPressed);
             this.__passToCorrespondingHandler(eventCategory, buttonPressed);
         } else {
             this.__alertWindow.publishInvalidKeyboardInputWarning(buttonPressed);
         }
     }
-
 
     // ****************************************************************************************** //
     // ***************************** PRIVATE HELPER METHODS ************************************* // 
@@ -52,6 +54,9 @@ export default class KeyboardEventHandler {
             return true;
         }
         if (keyboardCalculatorOperationsEnum.operator.includes(buttonPressed)) {
+            return true;
+        }
+        if (keyboardCalculatorOperationsEnum.calculate.includes(buttonPressed)) {
             return true;
         }
         if (keyboardCalculatorOperationsEnum.seperator.includes(buttonPressed)) {
@@ -79,6 +84,8 @@ export default class KeyboardEventHandler {
             return "numberEvent";
         } else if (keyboardCalculatorOperationsEnum.operator.includes(buttonPressed)) {
             return "operatorEvent";
+        } else if (keyboardCalculatorOperationsEnum.calculate.includes(buttonPressed)) {
+            return "calculateEvent";
         } else if (keyboardCalculatorOperationsEnum.seperator.includes(buttonPressed)) {
             return "numberEvent";
         } else if (keyboardCalculatorOperationsEnum.specialOps.includes(buttonPressed)) {
@@ -96,7 +103,6 @@ export default class KeyboardEventHandler {
      * @param {String} buttonPressed contains the button pressed on the keyboard 
      */
     __passToCorrespondingHandler(eventCategory, buttonPressed) {
-        buttonPressed = KeyboardEventToCalculatorEventMapper.mapKeyboardToCalculatorEvent(buttonPressed);
         switch (eventCategory) {
             case "numberEvent": 
                 this.__calculationEventHandler.handleNumberEvent(buttonPressed);
@@ -104,9 +110,14 @@ export default class KeyboardEventHandler {
 
             case "operatorEvent": 
                 this.__calculationEventHandler.handleOperatorEvent(buttonPressed);
-                break; 
+                break;
+                
+            case "calculateEvent": 
+                this.__calculationEventHandler.handleCalculateEvent();
+                break;
 
             case "specialEvent": 
+                console.log(buttonPressed);
                 this.__calculationEventHandler.handleSpecialEvent(buttonPressed);
                 break; 
 

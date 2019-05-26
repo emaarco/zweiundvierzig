@@ -46,10 +46,10 @@ export default class OnOffEventHandler {
             this.__keyboardEventListener.activateKeyboardListener();
         } else {
             this.__calculatorWindow.turnCalculatorOff();
+            this.__termBuilder.consumeSpecialEvent("CLEAR_ALL");
             this.__alertWindow.publishCalculatorOfflineAlert();
             this.__calculationEventListener.deactivateCalculationListener();
             this.__keyboardEventListener.deactivateKeyboardListener();
-            this.__termBuilder.consumeSpecialEvent("CLEAR_ALL");
         }
     }
 }

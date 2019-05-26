@@ -26,8 +26,10 @@ import KeyboardEventListener from "../../main/listener/KeyboardEventListener.js"
     listenerUnderTest.consumeButtonPressedEvent("5");
     listenerUnderTest.consumeButtonPressedEvent("Backspace");
     listenerUnderTest.consumeButtonPressedEvent(".");
+    listenerUnderTest.consumeButtonPressedEvent("*");
+    listenerUnderTest.consumeButtonPressedEvent("=");
 
-    expect(keyboardEventHandler.handleKeyboardEvent).toHaveBeenCalledTimes(3);
+    expect(keyboardEventHandler.handleKeyboardEvent).toHaveBeenCalledTimes(5);
  });
 
  /**

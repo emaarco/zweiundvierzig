@@ -21,6 +21,10 @@ const handlerUnderTest = new KeyboardEventHandler(onOffEventHandler, calculation
  */
 afterEach(() => {
     calculationEventHandler.handleNumberEvent.mockClear();
+    calculationEventHandler.handleCalculateEvent.mockClear();
+    calculationEventHandler.handleOperatorEvent.mockClear();
+    calculationEventHandler.handleSpecialEvent.mockClear();
+    onOffEventHandler.handleOnOffEvent.mockClear();
 });
 
 /**
@@ -45,6 +49,19 @@ test("retrieve and pass operator event", () => {
 test("retrieve and pass specialEvent", () => {
     handlerUnderTest.handleKeyboardEvent("Backspace");
     expect(calculationEventHandler.handleSpecialEvent).toHaveBeenCalledTimes(1);
+});
+
+/**
+ * Retrieve a calculateEvent from the keyboard and passes it to the calculationEventHandler
+ */
+test("retrieve and pass calculateEvent", () => {
+    handlerUnderTest.handleKeyboardEvent("=");
+    handlerUnderTest.handleKeyboardEvent("Enter");
+    expect(calculationEventHandler.handleCalculateEvent).toHaveBeenCalledTimes(2);
+    expect(calculationEventHandler.handleNumberEvent).toHaveBeenCalledTimes(0);
+    expect(calculationEventHandler.handleSpecialEvent).toHaveBeenCalledTimes(0);
+    expect(calculationEventHandler.handleSpecialEvent).toHaveBeenCalledTimes(0);
+    expect(onOffEventHandler.handleOnOffEvent).toHaveBeenCalledTimes(0);
 });
 
 /**

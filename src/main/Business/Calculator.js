@@ -15,6 +15,7 @@ export default class Calculator {
     /**
      * Calculate result of term depending on operator
      * Push the calculated term to log
+     * @param {Term} term the term to be caluclated
      */
     calculate (term) {       
         if (term.operator === 'add') {

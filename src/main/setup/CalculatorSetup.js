@@ -44,7 +44,7 @@ export default class CalculatorSetup {
             document.getElementById("bttnSubtract").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("subtract"));
             document.getElementById("bttnAdd").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("add"));
             document.getElementById("bttnDivide").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("divide"));
-            document.getElementById("bttnCalc").addEventListener("click", () => calculatorButtonListener.consumeOperatorEvent("calculate"));
+            document.getElementById("bttnCalc").addEventListener("click", () => calculatorButtonListener.consumeCalculateEvent());
 
             // Setting up the buttons representing special operations
             document.getElementById("bttnClearAll").addEventListener("click", () => calculatorButtonListener.consumeSpecialEvent("CLEAR_ALL"));

@@ -50,6 +50,12 @@ export default class CalculationEventListener {
         }
     }
 
+    consumeCalculateEvent() {
+        if (this.__listenerIsActive) {
+            this.__calculationEventHandler.handleCalculateEvent();
+        }
+    }
+
     /**
      * Consumes an onOffEvent from the calculator gui buttons and publishes
      * it to the onOffEventHandler. (also if the listener is inactive!)
