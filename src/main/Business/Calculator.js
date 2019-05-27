@@ -1,5 +1,4 @@
-'use strict';
-import Term from "../data/Term.js"
+"use strict";
 
 export default class Calculator {
     /**
@@ -10,26 +9,68 @@ export default class Calculator {
     constructor() {
         // build log of last 5 terms
         this.__log = [];
+        this.logCounter = 0;
     }
 
     /**
      * Calculate result of term depending on operator
      * Push the calculated term to log
-     * @param {Term} term the term to be caluclated
+     * Trims to 9 digits after seperator
      */
-    calculate (term) {       
-        if (term.operator === 'add') {
+    calculate (term) {
+        if (term.operator === "add") {
             term.result = (parseFloat(term.num1) + parseFloat(term.num2)).toString();
-        } else if (term.operator === 'multiply') {
+        } else if (term.operator === "multiply") {
             term.result = (parseFloat(term.num1) * parseFloat(term.num2)).toString();
-        } else if (term.operator === 'subtract') {
+        } else if (term.operator === "subtract") {
             term.result = (parseFloat(term.num1) - parseFloat(term.num2)).toString();
-        } else if (term.operator === 'divide') {
+        } else if (term.operator === "divide") {
             term.result = (parseFloat(term.num1) / parseFloat(term.num2)).toString();
         }
+
+        if (term.result.includes(".")) {
+            const floatingLength = term.result.substring(term.result.indexOf(".") + 1).length;
+            if (floatingLength > 14) {
+                term.result = parseFloat(term.result).toPrecision(15);
+            }
+        }
+
         term.ans = term.result;
-        // push to log to save the last 5 logs
-        // build intelligence to containt only last 5
-        this.__log.push(term);
+
+        this.logLastFive(term);
+    }
+
+    /**
+     * Save the last 5 terms to array
+     * 
+     * @param {Term} term 
+     */
+    logLastFive(term) {
+        if (this.__log.length < 5) {
+            this.__log.push(term);
+        } else if (this.logCounter < 5) {
+            this.__log[this.logCounter] = term;
+            this.logCounter += 1;
+        } else {
+            this.logCounter = 0;
+            this.__log[this.logCounter] = term;
+            this.logCounter += 1;
+        }
+    }
+
+    /**
+     * Save log to server
+     *
+     */
+    save() {
+
+    }
+
+    /**
+     * Load log from server
+     * 
+     */
+    load() {
+
     }
 }
