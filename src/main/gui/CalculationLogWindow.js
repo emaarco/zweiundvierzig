@@ -1,4 +1,8 @@
+<<<<<<< src/main/gui/CalculationLogWindow.js
+'use strict';
+=======
 'use strict'
+>>>>>>> src/main/gui/CalculationLogWindow.js
 
 import navigationTabStatusEnum from "../enum/NavigationTabStatusEnum.js";
 

@@ -1,4 +1,8 @@
+<<<<<<< src/main/gui/AlertWindow.js
+'use strict';
+=======
 'use strict'
+>>>>>>> src/main/gui/AlertWindow.js
 
 import AlertMessage from "../data/AlertMessage.js";
 import alertTypeEnum from "../enum/AlertTypeEnum.js";
@@ -77,7 +81,11 @@ export default class AlertWindow {
     }
 
     publishMinusMinusIsPlusAlert() {
+<<<<<<< src/main/gui/AlertWindow.js
+        const alertTitle = "EASTEREGG:";
+=======
         const alertTitle = "EASTEREGG";
+>>>>>>> src/main/gui/AlertWindow.js
         const alertDescription = "You entered two consecutive minus signs, thats a plus!";
         const alertNote = "- + - = +";        
 
@@ -93,21 +101,37 @@ export default class AlertWindow {
      * @param {*} op2 
      */
     publishReplaceOperatorAlert(op1, op2) {
+<<<<<<< src/main/gui/AlertWindow.js
+        const alertTitle = "INFO:";
+        const alertDescription = "You cant input two operators consecutively.";
+        const alertNote = "Replaced operator " + operatorEnum(op1) + " with " + operatorEnum(op2);
+        
+        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+=======
         const alertTitle = "WARNING:";
         const alertDescription = "You cant input two operators consecutively.";
         const alertNote = "Replaced operator " + op1 + " with " + op2;
         
         const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+>>>>>>> src/main/gui/AlertWindow.js
 
         this.__parseMessageToDocument(newAlert);
     }
 
     publishTooManyOperatorAlert() {
+<<<<<<< src/main/gui/AlertWindow.js
+        const alertTitle = "INFO:";
+        const alertDescription = "You are only allowed to use one operator per calculation!";
+        const alertNote = "Hit equal before inserting next calculation!";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+=======
         const alertTitle = "WARNING:";
         const alertDescription = "You are only allowed to use one operator per calculation!";
         const alertNote = "Hit equal before inserting next calculation!";
 
         const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+>>>>>>> src/main/gui/AlertWindow.js
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -117,7 +141,11 @@ export default class AlertWindow {
         const alertDescription = "Can't calculate with missing values!";
         const alertNote = "Please insert values!";
 
+<<<<<<< src/main/gui/AlertWindow.js
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+=======
         const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+>>>>>>> src/main/gui/AlertWindow.js
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -127,7 +155,11 @@ export default class AlertWindow {
         const alertDescription = "Can't calculate without an operator!";
         const alertNote = "Please enter an operator!";
 
+<<<<<<< src/main/gui/AlertWindow.js
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+=======
         const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+>>>>>>> src/main/gui/AlertWindow.js
         
         this.__parseMessageToDocument(newAlert);
     }
@@ -137,14 +169,18 @@ export default class AlertWindow {
         const alertDescription = "Can't calculate without a second value!";
         const alertNote = "Enter a second value!";
 
+<<<<<<< src/main/gui/AlertWindow.js
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+=======
         const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
+>>>>>>> src/main/gui/AlertWindow.js
 
         this.__parseMessageToDocument(newAlert);
     }
 
     publishEnterTheVoidAlert(voidCount) {
         if (voidCount >= 5) {
-            document.body.style.backgroundImage = "url('../../../img/The_Void.jpg')"; //https://wiki.godvillegame.com/images/f/f7/The_Void.jpg
+            document.body.style.backgroundImage = "url('../../../img/The_Void.jpg')";
             document.getElementsByClassName("container")[0].style.visibility = "hidden";
 
             setTimeout(() => {
@@ -156,6 +192,48 @@ export default class AlertWindow {
         const alertTitle = "THE VOID:";
         const alertDescription = "You can't delete nothing! Stop hitting backspace!";
         const alertNote = "Do you want to enter the void?";
+<<<<<<< src/main/gui/AlertWindow.js
+
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+        
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    publishInvalidTerm() {
+        const alertTitle = "WARNING:";
+        const alertDescription = "Invalid term!";
+        const alertNote = "Enter a valid term!";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    publishDivisionZero() {
+        const alertTitle = "WARNING:";
+        const alertDescription = "You cant divide through 0!";
+        const alertNote = "Enter a valid number greater 0!";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    publishAnsAlert() {
+        const alertTitle = "WARNING:";
+        const alertDescription = "You cant insert ANS into a already populated number!";
+        const alertNote = "Delete the number before hitting ANS!";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    publishAnsEmpty() {
+        const alertTitle = "INFO:";
+        const alertDescription = "ANS is empty!";
+        const alertNote = "Calculate something before trying to insert ANS!";
+=======
 
         const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
         
@@ -169,10 +247,27 @@ export default class AlertWindow {
         const alertTitle = "INFO:";
         const alertDescription = "Your recent calculation has been deleted";
         const alertNote = "You can now start entering a new calculation";
+>>>>>>> src/main/gui/AlertWindow.js
 
         const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+<<<<<<< src/main/gui/AlertWindow.js
+    }
+
+    /**
+     * Publishes an alert to inform the user, that the calculation has been deleted. 
+     */
+    publishClearAllAlert() {
+        const alertTitle = "INFO:";
+        const alertDescription = "Your recent calculation has been deleted";
+        const alertNote = "You can now start entering a new calculation";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+=======
+>>>>>>> src/main/gui/AlertWindow.js
     }
 
     // ****************************************************************************************** //
