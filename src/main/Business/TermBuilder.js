@@ -250,10 +250,7 @@ export default class TermBuilder {
             this.__term.operator = operator;
             this.__term.flag = "operator";
             this.__term.termToDisplay();
-        } else {
-            this.__alertWindow.publishTooManyOperatorAlert();
-            this.__term.termToDisplay();
-        }       
+        }
     }
 
     /**
