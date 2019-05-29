@@ -179,7 +179,7 @@ export default class TermBuilder {
                     this.opEventFlagOperator(operator);
                     break;
                 case "num2":
-                    this.opEventFlagNum2();
+                    this.opEventFlagNum2(operator);
                     break;
                 case "result":
                     this.opEventFlagResult(operator);
@@ -236,21 +236,21 @@ export default class TermBuilder {
         }
     }
 
-    opEventFlagNum2 () {
-        this.__alertWindow.publishTooManyOperatorAlert();
+    opEventFlagNum2 (operator) {
+        this.consumeCalculateEvent();
+        this.__term.clearTerm();
+        this.__term.num1 = this.__term.ans;
+        this.__term.operator = operator;
+        this.__term.flag = "operator";
         this.__term.termToDisplay();
     }
 
     opEventFlagResult (operator) {
-        if (operator === "calculate") {
-            this.__term.resultToDisplay();
-        } else {
-            this.__term.clearTerm();
-            this.__term.num1 = this.__term.ans;
-            this.__term.operator = operator;
-            this.__term.flag = "operator";
-            this.__term.termToDisplay();
-        }
+        this.__term.clearTerm();
+        this.__term.num1 = this.__term.ans;
+        this.__term.operator = operator;
+        this.__term.flag = "operator";
+        this.__term.termToDisplay();
     }
 
     /**

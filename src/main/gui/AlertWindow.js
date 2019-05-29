@@ -2,6 +2,7 @@
 
 import AlertMessage from "../data/AlertMessage.js";
 import alertTypeEnum from "../enum/AlertTypeEnum.js";
+import operatorEnum from "../enum/OperatorEnum.js";
 
 /**
  * A class used to publish alerts on the gui to inform the user about his input actions
@@ -77,7 +78,7 @@ export default class AlertWindow {
     }
 
     publishMinusMinusIsPlusAlert() {
-        const alertTitle = "EASTEREGG";
+        const alertTitle = "EASTEREGG:";
         const alertDescription = "You entered two consecutive minus signs, thats a plus!";
         const alertNote = "- + - = +";        
 
@@ -86,12 +87,6 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
-    /**
-     * TODO: ADD ENUM FOR OPS
-     * 
-     * @param {*} op1 
-     * @param {*} op2 
-     */
     publishReplaceOperatorAlert(op1, op2) {
         const alertTitle = "INFO:";
         const alertDescription = "You cant input two operators consecutively.";
@@ -131,7 +126,7 @@ export default class AlertWindow {
         
         this.__parseMessageToDocument(newAlert);
     }
-
+    
     publishMissingSecondNumberAlert() {
         const alertTitle = "WARNING:";
         const alertDescription = "Can't calculate without a second value!";
