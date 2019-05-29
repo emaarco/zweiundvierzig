@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Testing the keyboard listener 
  * - setting it active / inactive and check the behaviour. 

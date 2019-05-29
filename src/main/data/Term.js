@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 export default class Term {
 
@@ -52,5 +52,10 @@ export default class Term {
         this.num2 = "";
         this.result = "";
         this.flag = "num1";
+        console.log("Term.clearTerm");
+    }
+
+    clearAns() {
+        this.ans = "";
     }
 }

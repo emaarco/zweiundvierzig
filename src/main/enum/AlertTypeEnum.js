@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /**
  * An enum representating all kinds of valid bootstrap alert-types

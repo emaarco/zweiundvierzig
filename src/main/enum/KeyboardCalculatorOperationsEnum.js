@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /***
  * An enum representation containing all valid Calculator-Operations

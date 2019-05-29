@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 import navigationTabStatusEnum from "../enum/NavigationTabStatusEnum.js";
 

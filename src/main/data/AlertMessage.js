@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 import alertTypeEnum from "../enum/AlertTypeEnum.js";
 

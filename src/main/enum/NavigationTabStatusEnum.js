@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /**
  * An enum containing html-classes / id´s 

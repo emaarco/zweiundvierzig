@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /**
  * An enum containing all html-classes / id´s of the gui-buttons
