@@ -1,5 +1,4 @@
-'use strict'
-
+"use strict";
 
 const operatorEnum = (op) => {
     switch (op) {

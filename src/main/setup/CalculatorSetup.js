@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 import CalculationEventListener from "../listener/CalculationEventListener.js";
 import CalculatorWindow from "../gui/CalculatorWindow.js";

@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * testing the calculation event listener as the listener which listenes 
  * to all actions that are triggered by the gui calculator buttons

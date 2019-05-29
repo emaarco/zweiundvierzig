@@ -1,4 +1,4 @@
-'use-strict';
+"use strict";
 
 import TermBuilder from "../business/TermBuilder.js";
 

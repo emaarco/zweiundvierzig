@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 import OnOffEventHandler from "./OnOffEventHandler.js";
 import CalculationEventHandler from "./CalculationEventHandler.js";

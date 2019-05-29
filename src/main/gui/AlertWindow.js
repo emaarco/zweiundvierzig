@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 import AlertMessage from "../data/AlertMessage.js";
 import alertTypeEnum from "../enum/AlertTypeEnum.js";
@@ -41,9 +41,9 @@ export default class AlertWindow {
     publishCalculatorOfflineAlert() {
         const alertTitle = "INFO";
         const alertDescription = "The calculator is currently turned off";
-        const alertNote = "In case you want to make a calculation, you need to turn it on"
+        const alertNote = "In case you want to make a calculation, you need to turn it on";
 
-        const newAlert = this.__buildAlert(alertTypeEnum.SECONDARY, alertTitle, alertDescription, alertNote, false)
+        const newAlert = this.__buildAlert(alertTypeEnum.SECONDARY, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -179,8 +179,8 @@ export default class AlertWindow {
 
     publishAnsAlert() {
         const alertTitle = "WARNING:";
-        const alertDescription = "You cant insert ANS into a already populated number!";
-        const alertNote = "Delete the number before hitting ANS!";
+        const alertDescription = "You cant insert an ANS with decimals into a decimal number!";
+        const alertNote = "Delete the decimal in number before hitting ANS!";
 
         const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
 

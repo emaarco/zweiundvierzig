@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 import keyboardToCalculatorEventMappingEnum from "../../main/enum/KeyboardToCalculatorEventMappingEnum.js";
 import KeyboardToCalculatorMapper from "../../main/mapper/KeyboardToCalculatorMapper.js"

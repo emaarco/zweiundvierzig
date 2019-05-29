@@ -1,7 +1,6 @@
-'use strict'
+"use strict";
 
 import KeyboardEventHandler from "../handler/KeyboardEventHandler.js"
-
 
 /***
  * This class is used for catching keyboard events

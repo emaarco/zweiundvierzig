@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 import AlertWindow from "./src/main/gui/AlertWindow.js";
 import CalculatorWindow from "./src/main/gui/CalculatorWindow.js";

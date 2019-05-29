@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 import CalculationEventHandler from "../../main/handler/CalculationEventHandler.js";
 import TermBuilder from "../../main/business/TermBuilder.js";
