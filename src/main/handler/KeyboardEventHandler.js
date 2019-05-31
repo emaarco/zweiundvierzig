@@ -117,7 +117,6 @@ export default class KeyboardEventHandler {
                 break;
 
             case "specialEvent": 
-                console.log(buttonPressed);
                 this.__calculationEventHandler.handleSpecialEvent(buttonPressed);
                 break; 
 

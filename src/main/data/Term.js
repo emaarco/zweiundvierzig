@@ -1,5 +1,7 @@
 "use strict";
 
+import operatorEnum from "../enum/OperatorEnum.js";
+
 export default class Term {
 
     /**
@@ -14,7 +16,6 @@ export default class Term {
         this.result = "";
         this.ans = "";
         this.flag = "num1"; 
-        console.log("Empty Term Initialized");
     }
 
     // add enum for operator
@@ -37,12 +38,10 @@ export default class Term {
             default:
                 break;
         }
-        console.log("current flag:" + this.flag);
         document.getElementById("calculationArea").innerHTML = this.num1 + op + this.num2;
     }
 
     resultToDisplay() {
-        console.log("current flag:" + this.flag);
         document.getElementById("calculationArea").innerHTML = this.result;
     }
 
@@ -52,10 +51,17 @@ export default class Term {
         this.num2 = "";
         this.result = "";
         this.flag = "num1";
-        console.log("Term.clearTerm");
     }
 
     clearAns() {
         this.ans = "";
+    }
+
+    /**
+     * returns the current term as a string representation
+     * @returns {String} term as a string
+     */
+    toString() {
+        return this.num1 + " " + operatorEnum(this.operator) + " " + this.num2 + " = " + this.result;
     }
 }

@@ -4,6 +4,7 @@ import CalculatorWindow from "../../main/gui/CalculatorWindow.js";
 import AlertWindow from "../../main/gui/AlertWindow.js";
 import CalculationEventListener from "../../main/listener/CalculationEventListener.js";
 import KeyboardEventListener from "../../main/listener/KeyboardEventListener.js";
+import LogWindowEventListener from "../../main/listener/LogWindowEventListener.js";
 import TermBuilder from "../../main/business/TermBuilder.js";
 import OnOffEventHandler from "../../main/handler/OnOffEventHandler.js";
 
@@ -13,16 +14,18 @@ jest.mock("../../main/gui/CalculatorWindow.js");
 jest.mock("../../main/listener/CalculationEventListener.js");
 jest.mock("../../main/listener/KeyboardEventListener.js");
 jest.mock("../../main/business/TermBuilder.js");
+jest.mock("../../main/listener/LogWindowEventListener.js");
 
 // Initializing the test instances / mocks
 const alertWindowMock = new AlertWindow();
 const calculatorWindowMock = new CalculatorWindow();
 const calculationEventListenerMock = new CalculationEventListener();
 const keyboardEventListenerMock = new KeyboardEventListener();
+const logWindowEventListenerMock = new LogWindowEventListener();
 const termBuilderMock = new TermBuilder();
 const handlerUnderTest = new OnOffEventHandler(
     calculatorWindowMock, alertWindowMock, calculationEventListenerMock
-, keyboardEventListenerMock, termBuilderMock
+, keyboardEventListenerMock, logWindowEventListenerMock, termBuilderMock
     );
 
 /**

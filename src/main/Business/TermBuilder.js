@@ -13,7 +13,6 @@ export default class TermBuilder {
         this.__calculator = calculator
         this.__alertWindow = alertWindow;
         this.__voidCount = 0;
-        console.log("Initialized TermBuilder");
     }
 
     /**
@@ -22,7 +21,6 @@ export default class TermBuilder {
      * @param {STRING} num number from listener
      */
     consumeNumberEvent(num) {
-        console.log("consumeNumberEvent: "+num);
         if (num === "SEP") {
             num = ".";
         } else if (num === "ANS" && this.__term.ans == "") {
@@ -30,19 +28,15 @@ export default class TermBuilder {
         }
         switch (this.__term.flag) {
             case "num1":
-                console.log("consumeNumberFlag num1");
                 this.numEventFlagNum1(num);
                 break;
             case "operator":
-                console.log("consumeNumberFlag operator");
                 this.numEventFlagOperator(num);
                 break;
             case "num2":
-                console.log("consumeNumberFlag num2");
                 this.numEventFlagNum2(num);
                 break;
             case "result":
-                console.log("consumeNumberFlag result");
                 this.numEventFlagResult(num);
                 break;
             default:
@@ -160,7 +154,6 @@ export default class TermBuilder {
      * @param {*} operator operator from listener
      */
     consumeOperatorEvent(operator) {
-        console.log("consumeOperatorEvent: " + operator);
         if (operator === "divide" && parseFloat(this.__term.num1) === 0) {
             this.__alertWindow.publishDivisionZero();
             this.__term.termToDisplay();
@@ -193,7 +186,7 @@ export default class TermBuilder {
      * If num1 populated set operator
      * If operator is already set, overwrite it
      * If num1 empty and operator "-", input negative number
-     * @param {STRING} operator 
+     * @param {String} operator 
      */
     opEventFlagNum1 (operator) {
         if (this.__term.num1 != "") {
@@ -246,7 +239,7 @@ export default class TermBuilder {
     /**
      * Handles operator events with flag: result
      * if an operator is pressed and there is already a result, set result as num1 and insert pressed operator
-     * @param {STRING} operator 
+     * @param {String} operator 
      */
     opEventFlagResult (operator) {
         this.__term.clearTerm();
@@ -305,7 +298,7 @@ export default class TermBuilder {
                     this.spEventFlagNum1();
                     break;
                 default:
-                    console.log("Invalid flag: " + this.__term.flag);
+                    console.error("Invalid flag: {} ", this.__term.flag);
                     break;
             }
         }

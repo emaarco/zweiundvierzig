@@ -41,7 +41,6 @@ export default class CalculationEventHandler {
      */
     handleCalculateEvent() {
         this.__subscribers.forEach((subscriber) => {
-            console.log("calculate");
             subscriber.consumeCalculateEvent()
         });
     }
@@ -52,7 +51,6 @@ export default class CalculationEventHandler {
      */
     handleSpecialEvent(specialEvent) {
         this.__subscribers.forEach((subscriber) => {
-            console.log(specialEvent);
             subscriber.consumeSpecialEvent(specialEvent);
         });
     }
@@ -69,15 +67,15 @@ export default class CalculationEventHandler {
     addSubscriber(newSubscriber) {
         if (this.__isSubscriberValid(newSubscriber)) {
             if (this.__subscribers.has(newSubscriber)) {
-                console.log("Consumer allready subscribed to the events");
+                console.info("Consumer allready subscribed to the events");
             } else {
                 this.__subscribers.add(newSubscriber);
                 this.__subscribers.has(newSubscriber)
-                    ? console.log("Subscriber successfully added to the list")
-                    : console.log("An error occured while adding the new subscriber to the list")
+                    ? console.info("Subscriber successfully added to the list")
+                    : console.error("An error occured while adding the new subscriber to the list")
             }
         } else {
-            console.log("Given subscriber is not valid! Subscriber could not be added");
+            console.error("Given subscriber is not valid! Subscriber could not be added");
         }
     }
 
@@ -87,10 +85,10 @@ export default class CalculationEventHandler {
      */
     removeSubscriber(subscriberToBeRemoved) {
         if (this.__subscribers.has(subscriberToBeRemoved)) {
-            console.log("Removing subscriber from the list of subscribers");
+            console.info("Removing subscriber from the list of subscribers");
             this.__subscribers.delete(subscriberToBeRemoved);
         } else {
-            console.log("No subscriber known by this name");
+            console.error("No subscriber known by this name");
         }
     }
 

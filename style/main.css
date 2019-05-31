@@ -100,3 +100,25 @@ header {
     padding-right: 15%;
     font-size: 0.75rem;
 }
+
+.logButton {
+    width: 60%;
+}
+
+.logForm {
+    width: 20%;
+    padding-left: 10%;
+}
+
+.form-group input {
+    width: 60%;
+}
+
+.form-group button {
+    width: 20%;
+    padding-left: 10%;
+}
+
+li {
+    cursor: grab;
+}
