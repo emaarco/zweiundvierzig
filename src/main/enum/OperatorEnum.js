@@ -20,7 +20,6 @@ const operatorEnum = (op) => {
         default:
             break;
     }
-    console.log(op);
     return op;
 };
 

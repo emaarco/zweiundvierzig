@@ -3,11 +3,11 @@
 import CalculationEventListener from "../listener/CalculationEventListener.js";
 import CalculatorWindow from "../gui/CalculatorWindow.js";
 import AlertWindow from "../gui/AlertWindow.js";
-import CalculationLogWindow from "../gui/CalculationLogWindow.js";
 import KeyboardEventListener from "../listener/KeyboardEventListener.js";
+import LogWindowEventListener from "../listener/LogWindowEventListener.js";
 
-/***
- * We use this class for initializing the event-listeners of the calculator 
+/**
+ * We use this class for the initial setup of the event-listeners of the calculator 
  * and enabling / disabling other components
  */
 export default class CalculatorSetup {
@@ -70,14 +70,6 @@ export default class CalculatorSetup {
     }
 
     /**
-     * 
-     * @param {CalculationLogWindow} calculationLogWindow 
-     */
-    setupCalculationLogWindow(calculationLogWindow) {
-
-    }
-
-    /**
      * Setting up the keyboard listener, which retrieves buttonPressed-Events from the keyboard.
      * The Keyboard Listener filters them and passes them to the mainListener
      * @param {KeyboardEventListener} keyboardListener 
@@ -97,11 +89,11 @@ export default class CalculatorSetup {
 
     /**
      * 
-     * @param {NavigationEventListener} navigationEventListener 
+     * @param {LogWindowEventListener} logWindowEventListener 
      */
-    setupNavigationEventListener(navigationEventListener) {
-        document.getElementById("calculationLogTab").addEventListener("click", () => navigationEventListener.pressedLastCalculationsTab());
-        document.getElementById("saveAndLoadTab").addEventListener("click", () => navigationEventListener.pressedSaveAndLoadTab());
+    setupLogWindowEventListener(logWindowEventListener) {
+        document.getElementById("calculationLogTab").addEventListener("click", () => logWindowEventListener.consumePressedLastCalcuationTabEvent());
+        document.getElementById("logOptionsTab").addEventListener("click", () => logWindowEventListener.consumePressedOnLogOptionsTabEvent());
     }
 
 }
