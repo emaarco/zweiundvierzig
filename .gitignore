@@ -3,4 +3,5 @@ node_modules/*
 .vscode/*
 .idea/*
 .gitignore
+package-lock.json
 
