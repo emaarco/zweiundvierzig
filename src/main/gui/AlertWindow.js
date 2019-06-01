@@ -9,6 +9,9 @@ import operatorEnum from "../enum/OperatorEnum.js";
  */
 export default class AlertWindow {
 
+    /**
+     * 
+     */
     constructor() {
         this.__currentDefaultAlert;
     }
@@ -33,7 +36,6 @@ export default class AlertWindow {
             this.__parseMessageToDocument(this.__getCurrentDefaultAlert());
         }, 2500);
     }
-
 
     /**
      * Publishes an alert to inform the user, that the calculator is turned off.
@@ -77,6 +79,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishMinusMinusIsPlusAlert() {
         const alertTitle = "EASTEREGG:";
         const alertDescription = "You entered two consecutive minus signs, thats a plus!";
@@ -87,6 +92,11 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     * @param {*} op1 
+     * @param {*} op2 
+     */
     publishReplaceOperatorAlert(op1, op2) {
         const alertTitle = "INFO:";
         const alertDescription = "You cant input two operators consecutively.";
@@ -97,6 +107,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishTooManyOperatorAlert() {
         const alertTitle = "INFO:";
         const alertDescription = "You are only allowed to use one operator per calculation!";
@@ -107,6 +120,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishMissingFirstNumberAlert() {
         const alertTitle = "WARNING:";
         const alertDescription = "Can't calculate with missing values!";
@@ -117,6 +133,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishMissingOperatorAlert() {
         const alertTitle = "WARNING:";
         const alertDescription = "Can't calculate without an operator!";
@@ -127,6 +146,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
     
+    /**
+     * 
+     */
     publishMissingSecondNumberAlert() {
         const alertTitle = "WARNING:";
         const alertDescription = "Can't calculate without a second value!";
@@ -137,6 +159,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishEnterTheVoidAlert(voidCount) {
         if (voidCount >= 5) {
             document.body.style.backgroundImage = "url('../../../img/The_Void.jpg')";
@@ -157,6 +182,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishInvalidTerm() {
         const alertTitle = "WARNING:";
         const alertDescription = "Invalid term!";
@@ -167,6 +195,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishDivisionZero() {
         const alertTitle = "WARNING:";
         const alertDescription = "You cant divide through 0!";
@@ -177,6 +208,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishAnsAlert() {
         const alertTitle = "WARNING:";
         const alertDescription = "You cant insert an ANS with decimals into a decimal number!";
@@ -187,6 +221,9 @@ export default class AlertWindow {
         this.__parseMessageToDocument(newAlert);
     }
 
+    /**
+     * 
+     */
     publishAnsEmpty() {
         const alertTitle = "INFO:";
         const alertDescription = "ANS is empty!";
@@ -211,11 +248,62 @@ export default class AlertWindow {
     }
 
     // ****************************************************************************************** //
+    // ******************************* LOGGING SPECIFIC ALERTS ********************************** // 
+
+    /**
+     * 
+     * @param {String} logKey 
+     */
+    publishLogSuccessfullySavedAlert(logKey, logGotOverwriten) {
+        const alertTitle = "INFO:";
+        const alertDescription = "Your recent calculations have been saved to " + logKey;
+
+        let alertNote = "";
+        if (logGotOverwriten) {
+            alertNote = "As there was allready an existing log under this file-name, the previos log got overwritten";
+        } else {
+            alertNote = "You can access them by loading the file with the mentioned name";
+        }
+        
+        const newAlert = this.__buildAlert(alertTypeEnum.SUCCESS, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    /**
+     * 
+     * @param {String} logKey 
+     */
+    publishLogSuccessfullyLoadedAlert(logKey) {
+        const alertTitle = "INFO:";
+        const alertDescription = "Successfully loaded the '" + logKey + "' log.";
+        const alertNote = "You can access the, in there saved calculations, by switching to the 'Last Calculations' tab!";
+        
+        const newAlert = this.__buildAlert(alertTypeEnum.SUCCESS, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    /**
+     * 
+     * @param {String} logKey 
+     */
+    publishLogSuccessfullyDeletedAlert(logKey) {
+        const alertTitle = "INFO:";
+        const alertDescription = "Successfully deleted the '" + logKey + "' log.";
+        const alertNote = "The log got deleted and cannot be recovered";
+        
+        const newAlert = this.__buildAlert(alertTypeEnum.SUCCESS, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    // ****************************************************************************************** //
     // ***************************** PRIVATE HELPER METHODS ************************************* // 
 
     /**
      * Factory method to create a new alert.
-     * Will set the alert created, as the default alert, in case 'isDefault' is true
+     * Will set the alert created, as the default alert, in case "isDefault" is true
      * @param {alertTypeEnum} alertType type of the alert (css-id / class type)
      * @param {String} alertTitle alert title to be shown in the gui
      * @param {String} alertDescription alert description to be shown in the gui

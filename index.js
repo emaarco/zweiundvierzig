@@ -25,7 +25,7 @@ const alertWindow = new AlertWindow();
 const calculatorLogWindow = new CalculatorLogWindow();
 
 // Initialize calculation logic
-const calculatorLogService = new CalculatorLogService(calculatorLogWindow);
+const calculatorLogService = new CalculatorLogService(calculatorLogWindow, alertWindow);
 const calculator = new Calculator(calculatorLogService);
 const term = new Term();
 const termBuilder = new TermBuilder(term, calculator, alertWindow);
@@ -37,7 +37,7 @@ const keyboardEventListener = new KeyboardEventListener();
 
 // Create Event Handler
 const calculationEventHandler = new CalculationEventHandler();
-const logWindowEventHandler = new LogWindowEventHandler(calculationEventHandler, calculatorLogWindow);
+const logWindowEventHandler = new LogWindowEventHandler(calculationEventHandler, calculatorLogWindow, calculatorLogService);
 const onOffEventHandler = new OnOffEventHandler(calculatorWindow, alertWindow, calculationEventListener, keyboardEventListener, logWindowEventListener, termBuilder);
 const keyboardEventHandler = new KeyboardEventHandler(onOffEventHandler, calculationEventHandler, alertWindow);
 

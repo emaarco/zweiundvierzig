@@ -16,8 +16,9 @@ export default class CalculatorLogWindow {
     // ***************************** MAINTANDANCE METHODS** ************************************* // 
     
     /**
-     * 
-     * @param {*} logWindowEventListener 
+     * Setter method to initialize the logWindowEventListener, 
+     * which gets used to create event-listeners on the generated log-list-items
+     * @param {logWindowEventListener} logWindowEventListener 
      */
     setLogWindowEventListener(logWindowEventListener) {
         this.__logWindowEventListener = logWindowEventListener;
@@ -27,7 +28,7 @@ export default class CalculatorLogWindow {
     // ******************* MEHTODS HANLDING THE TAB NAVIGATION ********************************** // 
 
     /**
-     * 
+     * Switch the current calculation-log tab to the 'lastCalculations' tab
      */
     switchToLastCalculationsTab() {
         document.getElementById("calculationLogTab").className = navigationTabStatusEnum.ACTIVE_TAB;
@@ -37,7 +38,7 @@ export default class CalculatorLogWindow {
     }
 
     /**
-     * 
+     * Switch the current calculation-log tab to the 'logOptions' tab
      */
     switchToLogOptionsTab() {
         document.getElementById("calculationLogTab").className = navigationTabStatusEnum.INACTIVE_TAB;
@@ -47,23 +48,21 @@ export default class CalculatorLogWindow {
     }
 
     // ****************************************************************************************** //
-    // ******************* MEHTODS HANLDING THE LOG PUBLICATION ********************************* // 
+    // *********************** MANAGING CALCULATION LOG ENTRIES ********************************* // 
 
     /**
-     * Create the HTML list items
-     * Set termAsString as text
-     * Set class "list-group-item"
-     * set id log+length
-     * @param {String} term 
+     * Creates a new html list element containg the current calculation to be shown in the log 
+     * This list element is getting published to the gui
+     * @param {String} term term to be added to the current log
      */
     addNewTermListEntry(term, atLogPosition) {
-        const node = this.__createListItem(term, atLogPosition);
-        document.getElementById("calculationLogList").appendChild(node);
+        const option = this.__createTermListItem(term, atLogPosition);
+        document.getElementById("calculationLogList").appendChild(option);
     }
 
     /**
-     * Change text of log+length element to new term
-     * @param {Array<String>} term 
+     * Overwrite the currently saved terms, with the given calculation log
+     * @param {...String} calculationLog String array containing multiple caluclations (best case - 5x)
      */
     modifyTermListEntries(...calculationLog) {
         let entryPosition = 0;
@@ -74,25 +73,73 @@ export default class CalculatorLogWindow {
     }
 
     /**
-     * 
+     * Creates a html list object, which can be added to the gui / html-file
      * @param {Term} term term to be added to be list
-     * @returns {Node} entry to be added to the list
+     * @returns {option} entry to be added to the list
      */
-    __createListItem(term, atLogPosition) {
-        const node = document.createElement("li");
-        const textnode = document.createTextNode(term);
-        node.appendChild(textnode);
-        node.className = "list-group-item";
-        node.id = this.__getLogEntryHtmlID(atLogPosition);
-        node.addEventListener("click", () => this.__logWindowEventListener.consumeClickedOnLoggedTermEvent(node.innerHTML));
-        return node;
+    __createTermListItem(term, atLogPosition) {
+        const option = document.createElement("li");
+        option.className = "list-group-item";
+        option.innerHTML = term;
+        option.id = this.__getLogEntryHtmlID(atLogPosition);
+        option.addEventListener("click", () => this.__logWindowEventListener.consumeClickedOnLoggedTermEvent(option.innerHTML));
+        return option;
     }
 
     /**
-     * 
-     * @param {number} atLogPosition 
+     * Reconstructs the html id for the current log entry
+     * @param {number} atLogPosition id of the log-entry
+     * @returns {String} html-id
      */
     __getLogEntryHtmlID(atLogPosition) {
         return "log"+atLogPosition;
     }
+
+    // ****************************************************************************************** //
+    // ****************************** SAVE / LOAD / DELETE LOGS ********************************* // 
+
+    /**
+     * 
+     * @param {String} logKey 
+     */
+    addLogToSelectableLogs(logKey) {
+        const deleteOption = this.__createLogSelectOption(logKey);
+        const loadOption = this.__createLogSelectOption(logKey);
+
+        document.getElementById("loadLogOptions").appendChild(loadOption);
+        document.getElementById("deleteLogOptions").appendChild(deleteOption);
+    }
+
+    /**
+     * 
+     * @param {String} logKey 
+     */
+    removeLogFromSelectableLogs(logKey) {
+
+        const deleteOptions = document.getElementById("loadLogOptions").childNodes;
+        const loadOptions = document.getElementById("deleteLogOptions").childNodes;
+
+        deleteOptions.forEach((option) => {
+            if (option.innerHTML === logKey) {
+                option.remove();
+            }
+        });
+
+        loadOptions.forEach((option) => {
+            if (option.innerHTML === logKey) {
+                option.remove();
+            }
+        });
+    }
+
+    /**
+     * 
+     * @param {String} logKey 
+     */
+    __createLogSelectOption(logKey) {
+        const option = document.createElement("option");
+        option.innerHTML = logKey;
+        return option;
+    }
+
 }

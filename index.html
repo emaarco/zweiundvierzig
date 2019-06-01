@@ -12,17 +12,15 @@
 	<meta name="keywords" content="Taschenrechner, JavaScript, SS19, Projekt">
 	<meta name="author" content="Marco Schäck / Andreas Rudolf">
 
-	<!-- Import Bootstrap Content -->
-	<link rel="stylesheet" href="./style/bootstrap.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 	<!-- Page Title -->
 	<title>zweiundvierzig</title>
 	<link rel="shortcut icon" type="image/x-icon" href="./img/calc_favicon.png" ref="flaticon.com - by SmachIcons">
 
 	<!-- Internal CSS File -->
 	<link rel="stylesheet" href="./style/main.css">
+
+	<!-- Import Bootstrap Content -->
+	<link rel="stylesheet" href="./style/bootstrap.css">
 
 	<!-- Internal JS Files -->
 	<script type="module" src="./index.js"></script>
@@ -34,7 +32,7 @@
 		<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 			<a class="navbar-brand" href="#">
 				<img src="./img/navbar_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-				// der zweiundvierzig-Taschenrechner
+				// the one and only zweiundvierzig-Taschenrechner
 			</a>
 		</nav>
 	</header>
@@ -46,7 +44,7 @@
 					<div class="form-group">
 						<div class="calculator-display">
 							<div class="row">
-							<textarea class="form-control" id="calculationArea" rows="3" inactive></textarea>
+								<textarea class="form-control" id="calculationArea" rows="3" readonly></textarea>
 							</div>
 						</div>
 					</div>
@@ -87,10 +85,10 @@
 			<div class="col-sm">
 				<div class="alertArea">
 					<div class="alert alert-warning" role="alert" id="alertMessage">
-						<h4 class="alert-heading" id="alertHeading">INFO:<h4>
-								<p class="alert-description" id="alertDescription">An error occured while starting the calculator
+						<h4 class="alert-heading" id="alertHeading">INFO:</h4>
+								<p class="alert-description" id="alertDescription">An error occured while starting the
+									calculator
 								</p>
-								<hr>
 								<p class="alert-note" id="alertNote">That´s not the yellow from the egg</p>
 					</div>
 
@@ -101,29 +99,62 @@
 							alt="card header showing a calculation">
 						<div class="card-body">
 
+							<!-- tabs of the calculation log -->
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
 								<li class="nav-item">
-									<a class="nav-link active" id="calculationLogTab" id="calculations-tab"
+									<a class="nav-link active" id="calculationLogTab"
 										data-toggle="tab" href="#calculations" role="tab" aria-controls="calculations"
-										aria-selected="true">Calculation Log</a>
+										aria-selected="true">Last Calculations</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" id="logOptionsTab" id="logOptions-tab" data-toggle="tab"
-										href="#logOptions" role="tab" aria-controls="logOptions" aria-selected="false">Log Options</a>
+									<a class="nav-link" id="logOptionsTab" data-toggle="tab"
+										href="#logOptions" role="tab" aria-controls="logOptions"
+										aria-selected="false">Log Options</a>
+
 								</li>
 							</ul>
 
+							<!-- content of the navigation log tabs -->
 							<div class="tab-content">
 								<div class="tab-pane active" id="calculationLogContent" role="tabpanel"
 									aria-labelledby="home-tab">
 									<ul class="list-group list-group-flush" id="calculationLogList">
+										<!-- logged terms will be added here using js -->
 									</ul>
-									<footer class="blockquote-footer">Showing the 5 most recent calculations. Click on a recent calculation to select the result as an input for your next calculation</footer>
+									<footer class="blockquote-footer">Showing the 5 most recent calculations. Click on a
+										recent calculation to select the result as an input for your next calculation
+									</footer>
 								</div>
 
 								<div class="tab-pane" id="logOptionsContent" role="tabpanel"
 									aria-labelledby="profile-tab">
-									<footer class="blockquote-footer">Within this tab you can save your most recent calculations / load them to the calculation log</footer>
+
+									<div>
+										<form class="form-inline">
+												<input type="text" id="saveLogContent" class="form-control" placeholder="Log-Name">
+											<button type="submit" id="saveLogButton" class="btn btn-primary mb-2">Save</button>
+										</form>
+									</div>
+
+									<div>
+										<form class="form-inline">
+											<select class="form-control" id="deleteLogOptions">
+												<!-- select options will be added here using js -->
+											</select>
+											<button type="submit" id="deleteLogButton" class="btn btn-danger mb-2">Delete</button>
+										</form>
+									</div>
+
+									<div>
+										<form class="form-inline">
+											<select class="form-control" id="loadLogOptions">
+												<!-- select options will be added here using js -->
+											</select>
+											<button type="submit" id="loadLogButton" class="btn btn-warning mb-2">Load</button>
+										</form>
+									</div>
+
+									<footer class="blockquote-footer">Within this tab you have the option to save / load / delete your calculation logs</footer>
 								</div>
 							</div>
 						</div>

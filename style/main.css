@@ -54,6 +54,7 @@ header {
 
 /* ////////////////////////////////////////////////////// */
 /* Alerts */
+
 .alertArea {
     margin-top: 20px;
     margin-right: 25px;
@@ -74,7 +75,8 @@ header {
 }
 
 /* ////////////////////////////////////////////////////// */
-/* Logging */ 
+/* Logging Card */ 
+
 .loggingArea {
     background-color: white;
     margin-top: 20px;
@@ -82,7 +84,6 @@ header {
     margin-left: 25px;
     margin-bottom: 20px;
 }
-
 
 .card-img-top {
     opacity: 0.75;
@@ -101,6 +102,14 @@ header {
     font-size: 0.75rem;
 }
 
+/* ////////////////////////////////////////////////////// */
+/* Log-Options-Tab */
+
+.form-group input {
+    width: 60%;
+}
+
+
 .logButton {
     width: 60%;
 }
@@ -109,6 +118,20 @@ header {
     width: 20%;
     padding-left: 10%;
 }
+
+.form-inline .btn-primary, .form-inline .btn-warning, .form-inline .btn-danger {
+    height: calc(1.5em + 0.75rem + 2px);
+    font-size: 0.9rem;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: 60% !important;
+    margin-right: 2.5% !important;
+}
+
+/* ////////////////////////////////////////////////////// */
+/* Last-Calculations-Tab */
 
 .form-group input {
     width: 60%;
