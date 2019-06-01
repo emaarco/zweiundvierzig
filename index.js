@@ -28,7 +28,7 @@ const calculatorLogWindow = new CalculatorLogWindow();
 const calculatorLogService = new CalculatorLogService(calculatorLogWindow, alertWindow);
 const calculator = new Calculator(calculatorLogService);
 const term = new Term();
-const termBuilder = new TermBuilder(term, calculator, alertWindow);
+const termBuilder = new TermBuilder(term, calculator, alertWindow, calculatorWindow);
 
 // Create listeners 
 const logWindowEventListener = new LogWindowEventListener(calculatorLogWindow);

@@ -30,6 +30,7 @@ export default class CalculatorLogService {
      * @param {Term} term term to be saved to the log
      */
     logCalculatedTerm(termToBeAdded) {
+        this.__alertWindow.publishTermSuccessfullyCalculatedAlert();
         if (this.__log.length < 5) {
             this.__log.push(termToBeAdded.toString());
             this.__calculatorLogWindow.addNewTermListEntry(termToBeAdded.toString(), this.__log.length - 1);
@@ -63,6 +64,7 @@ export default class CalculatorLogService {
 
         try {
             setTimeout(() => {
+
                 let savedLogs = this.__getAllLocalStorageKeys();
                 const keyExists = savedLogs.indexOf(logKey) === -1 ? false : true;
 

@@ -18,6 +18,8 @@
     "jest": "^24.5.0"
   },
   "devDependencies": {
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+    "babel-plugin-static-fs": "^1.2.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "jest-dom": "^3.4.0"
   }
 }
