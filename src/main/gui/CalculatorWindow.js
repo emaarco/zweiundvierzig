@@ -1,11 +1,43 @@
 "use strict";
 
 import calculatorButtonIdEnum from "../enum/CalculatorButtonIdEnum.js";
+import Term from "../data/Term.js";
 
 export default class CalculatorWindow {
 
     constructor() {}
 
+    /**
+     * 
+     * @param {Term} termToBePublished 
+     */
+    publishCalculationToDisplay(termToBePublished, isResult) {
+        let operator = "";
+        // add enum function
+        switch (termToBePublished.operator) {
+            case "add":
+                operator = "+";
+                break;
+            case "subtract":
+                operator = "-";
+                break;
+            case "divide":
+                operator = "/";
+                break;
+            case "multiply":
+                operator = "*";
+                break;
+            default:
+                break;
+        }
+
+        const boxContent = isResult 
+            ? "" + termToBePublished.result
+            : "" + termToBePublished.numberOne + operator + termToBePublished.numberTwo; 
+            
+        document.getElementById("calculationArea").innerHTML = boxContent;
+    }
+    
     /**
      * 
      */

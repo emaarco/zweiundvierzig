@@ -22,13 +22,13 @@ export default class Calculator {
      */
     calculate (term) {
         if (term.operator === "add") {
-            term.result = (parseFloat(term.num1) + parseFloat(term.num2)).toString();
+            term.result = (parseFloat(term.numberOne) + parseFloat(term.numberTwo)).toString();
         } else if (term.operator === "multiply") {
-            term.result = (parseFloat(term.num1) * parseFloat(term.num2)).toString();
+            term.result = (parseFloat(term.numberOne) * parseFloat(term.numberTwo)).toString();
         } else if (term.operator === "subtract") {
-            term.result = (parseFloat(term.num1) - parseFloat(term.num2)).toString();
+            term.result = (parseFloat(term.numberOne) - parseFloat(term.numberTwo)).toString();
         } else if (term.operator === "divide") {
-            term.result = (parseFloat(term.num1) / parseFloat(term.num2)).toString();
+            term.result = (parseFloat(term.numberOne) / parseFloat(term.numberTwo)).toString();
         }
         if (term.result.includes(".")) {
             const floatingLength = term.result.substring(term.result.indexOf(".") + 1).length;

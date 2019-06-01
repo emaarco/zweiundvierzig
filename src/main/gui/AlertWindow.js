@@ -14,6 +14,7 @@ export default class AlertWindow {
      */
     constructor() {
         this.__currentDefaultAlert;
+        this.__timeoutIncidentFlag = 0;
     }
 
     // ****************************************************************************************** //
@@ -31,21 +32,18 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
-
-        setTimeout(() => {
-            this.__parseMessageToDocument(this.__getCurrentDefaultAlert());
-        }, 2500);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
 
     /**
      * Publishes an alert to inform the user, that the calculator is turned off.
      */
     publishCalculatorOfflineAlert() {
-        const alertTitle = "INFO";
+        const alertTitle = "OFFLINE";
         const alertDescription = "The calculator is currently turned off";
         const alertNote = "In case you want to make a calculation, you need to turn it on";
 
-        const newAlert = this.__buildAlert(alertTypeEnum.SECONDARY, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.DARK, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -54,11 +52,11 @@ export default class AlertWindow {
      * Publishes an alert to inform the user, that the calculator is turned on
      */
     publishCalculatorOnlineAlert() {
-        const alertTitle = "INFO";
+        const alertTitle = "ONLINE";
         const alertDescription = "The calculator is turned on. You can enter your calculation now!";
         const alertNote = "You can use either your keyboard or the displayed buttons to enter a valid term.";
 
-        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, true);
+        const newAlert = this.__buildAlert(alertTypeEnum.SECONDARY, alertTitle, alertDescription, alertNote, true);
 
         this.__parseMessageToDocument(newAlert);
     }
@@ -68,15 +66,29 @@ export default class AlertWindow {
 
     /**
      * 
+     */
+    publishValidCalculationAlert() {
+        const alertTitle = "INFO";
+        const alertDescription = "The current caluclation is valid";
+        const alertNote = "Continue entering your calculation!";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, true);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
+    /**
+     * 
      */    
     publishSeperatorAlreadySetAlert() {
         const alertTitle = "INFO";
         const alertDescription = "You have already set a seperator!";
-        const alertNote = "You cant have two seperators in one number!";
+        const alertNote = "You can't have two seperators in one number!";
 
-        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
 
     /**
@@ -90,6 +102,7 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
 
     /**
@@ -102,9 +115,10 @@ export default class AlertWindow {
         const alertDescription = "You cant input two operators consecutively.";
         const alertNote = "Replaced operator " + operatorEnum(op1) + " with " + operatorEnum(op2);
         
-        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
 
     /**
@@ -131,6 +145,7 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
 
     /**
@@ -144,6 +159,7 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
         
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
     
     /**
@@ -157,6 +173,7 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
 
     /**
@@ -198,20 +215,7 @@ export default class AlertWindow {
     /**
      * 
      */
-    publishDivisionZero() {
-        const alertTitle = "WARNING:";
-        const alertDescription = "You cant divide through 0!";
-        const alertNote = "Enter a valid number greater 0!";
-
-        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
-
-        this.__parseMessageToDocument(newAlert);
-    }
-
-    /**
-     * 
-     */
-    publishAnsAlert() {
+    publishCannotInsertAnsAlert() {
         const alertTitle = "WARNING:";
         const alertDescription = "You cant insert an ANS with decimals into a decimal number!";
         const alertNote = "Delete the decimal in number before hitting ANS!";
@@ -224,14 +228,15 @@ export default class AlertWindow {
     /**
      * 
      */
-    publishAnsEmpty() {
-        const alertTitle = "INFO:";
+    publishAnsIsEmptyAlert() {
+        const alertTitle = "NOT POSSIBLE:";
         const alertDescription = "ANS is empty!";
         const alertNote = "Calculate something before trying to insert ANS!";
 
-        const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
+        const newAlert = this.__buildAlert(alertTypeEnum.WARNING, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
 
     /**
@@ -245,7 +250,39 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.INFO, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(2500);
     }
+
+    // ****************************************************************************************** //
+    // ******************************* RESULT SPECIFIC ALERTS *********************************** // 
+
+    /**
+     * 
+     */
+    publishTermSuccessfullyCalculatedAlert() {
+        const alertTitle = "GENIOUS:";
+        const alertDescription = "Your calculation got caluclated successfully!";
+        const alertNote = "You can use the result directly for your next calculation!";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.SUCCESS, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(5000);
+    }
+
+    /**
+     * 
+     */
+    publishDivisionZero() {
+        const alertTitle = "WARNING:";
+        const alertDescription = "You cant divide through 0!";
+        const alertNote = "Enter a valid number greater 0!";
+
+        const newAlert = this.__buildAlert(alertTypeEnum.DANGER, alertTitle, alertDescription, alertNote, false);
+
+        this.__parseMessageToDocument(newAlert);
+    }
+
 
     // ****************************************************************************************** //
     // ******************************* LOGGING SPECIFIC ALERTS ********************************** // 
@@ -268,6 +305,7 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.SUCCESS, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(5000);
     }
 
     /**
@@ -282,6 +320,7 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.SUCCESS, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(5000);
     }
 
     /**
@@ -296,6 +335,7 @@ export default class AlertWindow {
         const newAlert = this.__buildAlert(alertTypeEnum.SUCCESS, alertTitle, alertDescription, alertNote, false);
 
         this.__parseMessageToDocument(newAlert);
+        this.__waitAndReturnToDefaultAlert(5000);
     }
 
     // ****************************************************************************************** //
@@ -338,6 +378,23 @@ export default class AlertWindow {
             document.getElementById("alertDescription").innerHTML = alertMessage.alertDescription;
             document.getElementById("alertNote").innerHTML = alertMessage.alertNote;
         }
+    }
+
+    /**
+     * Will wait for 2.5 seconds. After the timeout it will publish the current default alert 
+     * Will not publish the current default alert if during this time, another interrupting timeout alert got published!
+     */
+    __waitAndReturnToDefaultAlert(waitForMiliseconds) {
+        this.__timeoutIncidentFlag += 1 
+        const currentIncident_Flag = this.__timeoutIncidentFlag;
+
+        setTimeout(() => {
+            // Checks if the currently visible alert 
+            // is still the alert, which was active before starting the timeout
+            if (this.__timeoutIncidentFlag === currentIncident_Flag) {
+                this.__parseMessageToDocument(this.__getCurrentDefaultAlert());
+            }
+        }, waitForMiliseconds);
     }
 
     /**
