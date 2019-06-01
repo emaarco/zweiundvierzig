@@ -94,6 +94,9 @@ export default class CalculatorSetup {
     setupLogWindowEventListener(logWindowEventListener) {
         document.getElementById("calculationLogTab").addEventListener("click", () => logWindowEventListener.consumePressedLastCalcuationTabEvent());
         document.getElementById("logOptionsTab").addEventListener("click", () => logWindowEventListener.consumePressedOnLogOptionsTabEvent());
+        document.getElementById("saveLogButton").addEventListener("click", () => logWindowEventListener.consumeSaveLogEvent());
+        document.getElementById("deleteLogButton").addEventListener("click", () => logWindowEventListener.consumeDeleteLogEvent());
+        document.getElementById("loadLogButton").addEventListener("click", () => logWindowEventListener.consumeLoadLogEvent());
     }
 
 }

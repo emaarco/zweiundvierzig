@@ -22,6 +22,10 @@ export default class KeyboardEventListener {
      * @param {String} buttonPressed contains the button pressed on the keyboard 
      */
     consumeButtonPressedEvent(buttonPressed) {
+        if (this.__focusIsOnInputField()) {
+            return;
+        }
+
         if (this.__isShift(buttonPressed)) {
             return;
         }
@@ -54,7 +58,7 @@ export default class KeyboardEventListener {
      * @param {KeyboardEventHandler} keyboardEventHandler a keyboardEventHandler
      */
     setKeyboardEventHandler(keyboardEventHandler) {
-        this.__keyboardEventHandler = keyboardEventHandler
+        this.__keyboardEventHandler = keyboardEventHandler;
     }
 
     /**
@@ -77,6 +81,12 @@ export default class KeyboardEventListener {
      */
     __isESC(buttonPressed) {
         return buttonPressed === "Escape" 
+            ? true
+            : false;
+    }
+
+    __focusIsOnInputField() {
+        return document.activeElement === document.getElementById("saveLogContent")
             ? true
             : false;
     }

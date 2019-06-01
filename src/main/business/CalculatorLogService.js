@@ -1,6 +1,7 @@
 'use strict'
 
 import CalculatorLogWindow from "../gui/CalculatorLogWindow.js";
+import AlertWindow from "../gui/AlertWindow.js";
 
 export default class CalculatorLogService {
 
@@ -8,24 +9,30 @@ export default class CalculatorLogService {
      * constructur initializing the log-Service variables to process the last 5 results
      * @param {CalculatorLogWindow} calculatorLogWindow logWindow to publish the last results to the user
      */
-    constructor(calculatorLogWindow) {
-        if (calculatorLogWindow instanceof CalculatorLogWindow) {
+    constructor(calculatorLogWindow, alertWindow) {
+        if (calculatorLogWindow instanceof CalculatorLogWindow
+            && alertWindow instanceof AlertWindow) {
             this.__calculatorLogWindow = calculatorLogWindow;
+            this.__alertWindow = alertWindow;
         }
         this.__log = [];
+        this.__initializeSavedLogsFromLocalStorage();
     }
+
 
     // ****************************************************************************************** //
     // ************************** SAVE RESULTS TO THE TERM LOG ********************************** // 
 
     /**
-     * saveCurrentLog the last 5 terms to array
-     * @param {Term} term term to be saveCurrentLogd to the log
+     * Saves the given term to the calculation log.
+     * A new entry will be created if there are less than five existing entries
+     * If there are allready five entries, the last term will be overwriten
+     * @param {Term} term term to be saved to the log
      */
     logCalculatedTerm(termToBeAdded) {
         if (this.__log.length < 5) {
             this.__log.push(termToBeAdded.toString());
-            this.__calculatorLogWindow.addNewTermListEntry(termToBeAdded.toString(), this.__log.length-1);
+            this.__calculatorLogWindow.addNewTermListEntry(termToBeAdded.toString(), this.__log.length - 1);
         } else {
             this.__addTermToLogAndRemoveLastItem(termToBeAdded.toString());
             this.__calculatorLogWindow.modifyTermListEntries(...this.__log);
@@ -46,37 +53,99 @@ export default class CalculatorLogService {
     // ************************** SAVE / LOAD MY CALCULATION LOGS ******************************* // 
 
     /**
-     * save the current log to server
-     * EXAMPLE CODE FROM exam.md NOT TESTED
+     * Saves a log under a specific file name on the fake server
+     * @param {String} logKey key / filename under which, the log will be saved
+     * @param {Function} callback callback for handling possible falling exceptions
      */
-    saveCurrentLog(data, callback) {
-        setTimeout(() => {
-            let err = null;
-    
-            try {
-                localStorage.setItem("myData", JSON.stringify(data));
-            } catch (e) {
-                err = e;
-            }
-            callback(err);
-        }, 1000); // fake a response delay with 1000ms    
+    saveCurrentLogToServer(logKey, callback) {
+
+        let exception = null;
+
+        try {
+            setTimeout(() => {
+                let savedLogs = this.__getAllLocalStorageKeys();
+                const keyExists = savedLogs.indexOf(logKey) === -1 ? false : true;
+
+                localStorage.setItem(logKey, JSON.stringify(this.__log));
+                this.__alertWindow.publishLogSuccessfullySavedAlert(logKey, keyExists);
+
+                if (!keyExists) {
+                    this.__calculatorLogWindow.addLogToSelectableLogs(logKey);
+                }
+
+            }, 2500);
+        } catch (ex) {
+            exception = ex;
+        }
+        callback(exception);
     }
 
     /**
-     * Load the log from the server
-     * EXAMPLE CODE FROM exam.md NOT TESTED
+     * Deletes a log which is saved by a specific file name from the fake server.
+     * @param {String} logKey key / filename of the saved log, to be deleted
+     * @param {Function} callback callback for handling possible falling exceptions
      */
-    loadLogFromServer(callback) {
-        setTimeout(() => {
-            let err = null;
-            let data;
-    
-            try {
-                data = JSON.parse(localStorage.getItem("myData"));
-            } catch (e) {
-                err = e;
-            }
-            callback(err, data);
-        }, 1000); // fake a response delay with 1000ms    
+    deleteLogFromServer(logKey, callback) {
+
+        let exception = null;
+
+        try {
+            localStorage.removeItem(logKey);
+            setTimeout(() => {
+                this.__calculatorLogWindow.removeLogFromSelectableLogs(logKey);
+                this.__alertWindow.publishLogSuccessfullyDeletedAlert(logKey);
+            }, 2500);
+        } catch (ex) {
+            exception = e;
+        }
+        callback(exception);
     }
+
+    /**
+     * Loads a selected log from the fake server and replaces the existing log with it
+     * @param {String} logKey key / filename of the saved log to be loaded
+     * @param {Function} callback callback for handling possible falling exceptions
+     */
+    loadLogFromServer(logKey, callback) {
+
+        let exception = null;
+
+        try {
+            setTimeout(() => {
+                loadedLog = JSON.parse(localStorage.getItem(logKey));
+                if (loadedLog.length !== 0) {
+                    loadedLog.reverse;
+                    loadedLog.forEach((logEntry) => {
+                        this.logCalculatedTerm(logEntry);
+                    });
+                    this.__alertWindow.publishLogSuccessfullyLoadedAlert(logKey);
+                }
+            }, 2500);
+
+        } catch (ex) {
+            exception = ex;
+        }
+        callback(exception, loadedLog);
+    }
+
+    /**
+     * setup method, to retrieve all logs, which are currently saved to the local-storage.
+     * it is initializing them to the calculatorLogGUI 
+     */
+    __initializeSavedLogsFromLocalStorage() {
+        const savedLogs = this.__getAllLocalStorageKeys();
+        savedLogs.forEach((log) => {
+            this.__calculatorLogWindow.addLogToSelectableLogs(log);
+        });
+    }
+
+    /**
+     * gets all current keys of the local storage items
+     * @returns {Array} array containg all local storage items
+     */
+    __getAllLocalStorageKeys() {
+        const localStorageItems = Object.keys(localStorage);
+        return localStorageItems;
+    }
+
 }

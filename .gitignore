@@ -1,18 +1,6 @@
 # checkout all changes on node-modules folder
 node_modules/* 
 .vscode/*
-<<<<<<< .gitignore
-<<<<<<< .gitignore
 .idea/*
-<<<<<<< .gitignore
-node_modules
-=======
-node_modules
-=======
-.idea/*
->>>>>>> .gitignore
-=======
-.idea/*
-node_modules
->>>>>>> .gitignore
->>>>>>> .gitignore
+.gitignore
+
