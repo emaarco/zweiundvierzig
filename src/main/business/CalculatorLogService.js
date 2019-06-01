@@ -109,6 +109,7 @@ export default class CalculatorLogService {
     loadLogFromServer(logKey, callback) {
 
         let exception = null;
+        let loadedLog = [];
 
         try {
             setTimeout(() => {
