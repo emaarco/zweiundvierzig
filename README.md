@@ -14,9 +14,23 @@ der Rechenoperationen in sämtlichen Grundrechenarten unterstützt.
 <code>npm install</code>
 <br>
 
+2: Starten auf Localhost<br>
+<code>hs</code>
+
+**Wichtig hierbei:**<br>
+ggf. muss im Vorhein folgender Befehl durchgeführt werden -<br>
+<code>npm install http-server -g</code>
+
 ## Verwendete Frameworks / etc.:
-tbd.
-<br>
+* Jest Framework für Integrationstests (inkl. mitgelieferte Dependencies)
+
+## Implementierungstests:
+Die Implementierungstests sind mittels dem JEST Framework geschrieben worden.
+
+Ausführung der Tests:<br>
+<code>jest</code>
+oder alternativ über 
+<code>npm test</code>
 
 ## Weitere Links: 
 Folgender Link beschreibt eine mögliche Aufbaustruktur für das Projekt:<br>

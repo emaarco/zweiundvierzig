@@ -14,7 +14,7 @@
   "author": "Marco Schäck / Andreas Rudolf",
   "license": "ISC",
   "dependencies": {
-    "http-server": "^0.11.1",
+    "http-server": "^0.12.3",
     "jest": "^24.5.0"
   },
   "devDependencies": {
